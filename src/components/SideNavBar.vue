@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  interface Props {
-    activated: boolean
-  }
-  const props = defineProps<Props>()
+  // Stores
+  import { useSidebarStore } from '../stores/sidebar'
 
+  // Propiedades
+  const sidebarStore = useSidebarStore()
   const options = [
     {label: 'DashBoard', value: 'dashboard', icon: 'dashboard'},
     {label: 'Inventario', value: 'stocktaking', icon: 'inventory_2'},
@@ -12,16 +12,18 @@
     {label: 'Tiendas', value: 'shops', icon: 'storefront'},
     {label: 'Historial', value: 'history', icon: 'history'},
   ]
-
+  
+  // Metodos
   const lanzarConsola = () => {
-    console.log('Esto llega al sideBar ', props.activated)
+    sidebarStore.setSidebar(false)
+    console.log('Esto llega al sideBar ', sidebarStore.activated)
   }
 </script>
 
 <template>
   <div
     class="column-container side-container"
-    :class="activated ? 'side-container-activated' : ''">
+    :class="sidebarStore.activated ? 'side-container-activated' : ''">
     <!-- Botones de opciones -->
     <div class="column-container">
      <q-btn
@@ -31,7 +33,7 @@
        :icon="option.icon"
        :label="option.label"
        class="btn-option"
-       :class="activated ? '' : 'btn-hidden'"
+       :class="sidebarStore.activated ? '' : 'btn-hidden'"
        no-caps
        @click="lanzarConsola"/>
     </div>

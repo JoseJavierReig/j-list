@@ -1,11 +1,10 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
-  const emit = defineEmits(['activatedSideBar']);
-  const activated = ref(false);
-  const onActivated = () => {
-    activated.value = !activated.value
-    emit('activatedSideBar', activated.value)
-  }
+  // Stores
+  import { useSidebarStore } from '../stores/sidebar'
+
+  // Propiedades
+  const sidebarStore = useSidebarStore()
+
 </script>
 <template>
   <div class="nav-container separator-container">
@@ -14,9 +13,9 @@
         flat 
         round 
         class="menu-btn"
-        :icon="activated ? 'close' : 'menu'" 
+        :icon="sidebarStore.activated ? 'close' : 'menu'" 
         size="0.8rem"
-        @click="onActivated"/>
+        @click="sidebarStore.toggleSidebar()"/>
       <q-icon name="shopping_basket" size="28px" />
       <span>J-List</span>
     </div>
