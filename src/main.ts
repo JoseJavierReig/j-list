@@ -11,7 +11,7 @@ import 'quasar/src/css/index.sass'
 import '@quasar/extras/material-icons/material-icons.css'
 
 // Estilos propios
-// import './assets/main.css'
+import './assets/styles/index.css'
 
 const app = createApp(App)
 
