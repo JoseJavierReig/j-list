@@ -105,19 +105,6 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
 }
 
-/* Estilos de texto */
-.text-primary {
-  color: var(--text-primary);
-}
-
-.text-secondary {
-  color: var(--text-secondary);
-}
-
-.text-accent {
-  color: var(--accent);
-}
-
 /* Contenedores de la herramienta */
 .simple-container, .end-container, .column-container, .vertical-center-container, .center-container, .full-center-container, .separator-container {
   display: flex;
