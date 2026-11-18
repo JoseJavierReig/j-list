@@ -1,4 +1,4 @@
-/* Variables de estilos */
+
 :root {
   /* Paleta de colores de la herramienta */
   --bg-light-1: #fff;
@@ -6,23 +6,61 @@
   --first-light: #668a72;
   --second-light: #244536;
   --third-light: #d9a86c;
+
   /* Paleta de colores dark mode */
   --bg-dark-1: #18211c;
   --bg-dark-2: #243129;
   --first-dark: #8eae96;
   --second-dark: #dce6dc;
   --third-dark: #e0b77e;
+
   /* Tipografía de la herramienta */
   --header-txt: 'Inter', sans-serif;
   --simple-txt: 'Inter', sans-serif;
   --number-txt: 'Inter', sans-serif;
+
   /* Pesos tipográficos */
   --header-weight: 600;
   --simple-weight: 400;
   --number-weight: 600;
 
   /* Características numéricas */
-  font-variant-numeric: tabular-nums;
+  --number-variant: tabular-nums;
+
+  /* Variables de tema */
+  --app-bg: var(--bg-light-1);
+  --surface-bg: var(--bg-light-2);
+  --primary: var(--first-light);
+  --secondary: var(--second-light);
+  --accent: var(--third-light);
+  --text-primary: var(--second-light);
+  --text-secondary: var(--first-light);
+}
+
+/* Tema claro */
+body.body--light {
+  --app-bg: var(--bg-light-1);
+  --surface-bg: var(--bg-light-2);
+  --primary: var(--first-light);
+  --secondary: var(--second-light);
+  --accent: var(--third-light);
+  --text-primary: var(--second-light);
+  --text-secondary: var(--first-light);
+
+  color-scheme: light;
+}
+
+/* Tema oscuro */
+body.body--dark {
+  --app-bg: var(--bg-dark-1);
+  --surface-bg: var(--bg-dark-2);
+  --primary: var(--first-dark);
+  --secondary: var(--second-dark);
+  --accent: var(--third-dark);
+  --text-primary: var(--second-dark);
+  --text-secondary: var(--first-dark);
+
+  color-scheme: dark;
 }
 
 /* Selecciona todos los elementos */
@@ -33,18 +71,54 @@
 }
 
 /* Estilos base de la aplicacion */
-#app {
+body, #app {
   font-family: var(--simple-txt);
   font-weight: var(--simple-weight);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+body {
+  background-color: var(--app-bg);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+#app {
+  text-align: center;
 }
 
+/* Estilos de cabeceras */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--header-txt);
   font-weight: var(--header-weight);
+  color: var(--text-primary);
 }
 
+/* Estilos de textos */
+p, span, label, input, textarea, select, button {
+  font-family: var(--simple-txt);
+}
+
+/* Estilos numéricos */
 .numeric {
   font-family: var(--number-txt);
   font-weight: var(--number-weight);
   font-variant-numeric: var(--number-variant);
+}
+
+/* Estilos de superficies */
+.surface {
+  background-color: var(--surface-bg);
+  color: var(--text-primary);
+}
+
+/* Estilos de texto */
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-accent {
+  color: var(--accent);
 }
