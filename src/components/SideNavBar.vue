@@ -15,7 +15,7 @@
   
   // Metodos
   const lanzarConsola = () => {
-    sidebarStore.setSidebar(false)
+    // sidebarStore.setSidebar(false)
     console.log('Esto llega al sideBar ', sidebarStore.activated)
   }
 </script>
@@ -24,6 +24,7 @@
   <div
     class="column-container side-container"
     :class="sidebarStore.activated ? 'side-container-activated' : ''">
+    <q-separator v-if="sidebarStore.activated" class="separator" />
     <!-- Botones de opciones -->
     <div class="column-container">
      <q-btn
@@ -46,6 +47,7 @@
     color: var(--app-bg);
     height: calc(100vh - 74px);
     width: 300px;
+    padding-top: 0;
     transition: all 0.5s ease;
     align-items: flex-start;
     z-index: 2;
@@ -55,13 +57,14 @@
     padding: 5px 0px 5px 10px;
     transition: all 0.5s ease;
   }
-  @media screen and (max-width: 1024px) {
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
     .side-container {
       width: 0px;
       padding: 0px;
     }
     .side-container-activated {
       width: 300px;
+      padding: 0px 8px;
     }
     .btn-option {
       opacity: 1;
@@ -71,6 +74,31 @@
       opacity: 0;
       transform: translateX(-300px);
       overflow: hidden;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .side-container {
+      width: 100%;
+      height: 0px;
+      padding: 0px;
+    }
+    .side-container-activated {
+      height: calc(100vh - 74px);
+    }
+    .btn-option {
+      opacity: 1;
+    }
+    .btn-hidden {
+      opacity: 0;
+    }
+  }
+  /* Evitar animaciones de dimensiones al cambiar de breakpoint */
+  @media screen and (max-width: 1024px) {
+    .side-container {
+      transition-property: none;
+    }
+    .side-container-activated {
+      transition: all 0.5s ease;
     }
   }
 </style>

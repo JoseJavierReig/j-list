@@ -35,6 +35,10 @@
   --accent: var(--third-light);
   --text-primary: var(--second-light);
   --text-secondary: var(--first-light);
+
+  /* Variables de dimensiones */
+  --table: 1024px;
+  --mobile: 768px;
 }
 
 /* Tema claro */
@@ -130,6 +134,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 .separator-container {
   justify-content: space-between;
+}
+.separator {
+  width: 100%;
+  background-color: var(--primary);
 }
 
 /* Iconos */
