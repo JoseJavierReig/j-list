@@ -1,0 +1,24 @@
+@import './base.css';
+
+/* Variables CSS */
+:root {
+  --primary: #1976D2;
+  --bg-primary: #2c3f51;
+  --bg-secondary: #1c2934;
+}
+/* Selecciona todos los elementos */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+/* Estilos base de la aplicacion */
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: white;
+  height: 100vh;
+  background-color: #2c3e50;
+}
