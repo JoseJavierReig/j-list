@@ -6,7 +6,7 @@ import SideNavBar from './components/SideNavBar.vue';
 
 const activated = ref()
 
-const sendToSideNavBar = (data) => {
+const sendToSideNavBar = (data: boolean) => {
   activated.value = data
   console.log('Llega desde el Nav: ', activated.value);
 }
