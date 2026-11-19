@@ -1,4 +1,5 @@
 <template>
-  <div>
+  <div class="view-container">
+    Dashboard
   </div>
 </template>

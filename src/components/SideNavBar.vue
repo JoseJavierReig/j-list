@@ -24,7 +24,7 @@
   <div
     class="column-container side-container"
     :class="sidebarStore.activated ? 'side-container-activated' : ''">
-    <q-separator v-if="sidebarStore.activated" class="separator" />
+    <q-separator class="separator" />
     <!-- Botones de opciones -->
     <div class="column-container">
      <q-btn
