@@ -83,7 +83,7 @@
       padding: 0px;
     }
     .side-container-activated {
-      height: calc(100vh - 74px);
+      height: auto;
     }
     .btn-option {
       opacity: 1;
@@ -99,6 +99,7 @@
     }
     .side-container-activated {
       transition: all 0.5s ease;
+      padding-bottom: 8px;
     }
   }
 </style>

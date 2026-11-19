@@ -22,4 +22,9 @@ import SideNavBar from './components/SideNavBar.vue';
   width: 100%;
   min-height: calc(100vh - 74px);
 }
+@media screen and (max-width: 768px) {
+  .app-content {
+    flex-direction: column;
+  }
+}
 </style>
