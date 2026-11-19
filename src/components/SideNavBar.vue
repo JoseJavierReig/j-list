@@ -90,8 +90,10 @@
     }
     .btn-option {
       opacity: 1;
+      display: flex;
     }
     .btn-hidden {
+      display: none;
       opacity: 0;
     }
   }
