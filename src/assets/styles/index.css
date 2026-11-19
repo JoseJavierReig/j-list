@@ -82,7 +82,7 @@ body, #app {
   min-height: 100vh;
 }
 body {
-  background-color: var(--app-bg);
+  background-color: var(--surface-bg);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 #app {
@@ -94,6 +94,16 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--header-txt);
   font-weight: var(--header-weight);
   color: var(--text-primary);
+  line-height: 1.5;
+}
+.title {
+  font-size: 24px;
+  font-weight: var(--header-weight);
+}
+.subtitle {
+  font-size: 18px;
+  font-weight: inherit;
+  opacity: 0.5;
 }
 
 /* Estilos numéricos */
@@ -115,6 +125,10 @@ h1, h2, h3, h4, h5, h6 {
   height: calc(100vh - 74px);
   position: relative;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px;
 }
 
 
@@ -124,6 +138,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   gap: 8px;
   padding: 8px;
+  flex-wrap: nowrap;
 }
 .column-container {
   flex-direction: column;
@@ -143,6 +158,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 .separator-container {
   justify-content: space-between;
+}
+.wraped-container {
+  flex-wrap: wrap;
 }
 .separator {
   width: 100%;

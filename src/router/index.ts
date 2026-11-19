@@ -5,7 +5,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'dashboard',
-    component: () => import('../views/dashboard.vue')
+    component: () => import('../views/Dashboard.vue')
   }
 ]
 
