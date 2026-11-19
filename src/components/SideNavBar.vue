@@ -1,22 +1,25 @@
 <script setup lang="ts">
+  // Router
+  import { useRouter } from 'vue-router'
   // Stores
   import { useSidebarStore } from '../stores/sidebar'
 
   // Propiedades
   const sidebarStore = useSidebarStore()
+  const router = useRouter()
   const options = [
     {label: 'DashBoard', value: 'dashboard', icon: 'dashboard'},
     {label: 'Inventario', value: 'stocktaking', icon: 'inventory_2'},
     {label: 'Lista compra', value: 'listCart', icon: 'shopping_cart'},
     {label: 'Categorias', value: 'categories', icon: 'sell'},
-    {label: 'Tiendas', value: 'shops', icon: 'storefront'},
-    {label: 'Historial', value: 'history', icon: 'history'},
+    {label: 'Tiendas', value: 'stores', icon: 'storefront'},
+    {label: 'Historial', value: 'historical', icon: 'history'},
   ]
   
   // Metodos
-  const lanzarConsola = () => {
+  const navigateTo = (name: string) => {
     // sidebarStore.setSidebar(false)
-    console.log('Esto llega al sideBar ', sidebarStore.activated)
+    router.push({ name })
   }
 </script>
 
@@ -36,7 +39,7 @@
        class="btn-option"
        :class="sidebarStore.activated ? '' : 'btn-hidden'"
        no-caps
-       @click="lanzarConsola"/>
+       @click="navigateTo(option.value)"/>
     </div>
   </div>
 </template>
