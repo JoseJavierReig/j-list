@@ -25,5 +25,11 @@
   background-color: var(--app-bg);
   align-items: flex-start;
   border-radius: 10px;
+  cursor: pointer;
+}
+.card-container:hover {
+  transform: translateY(-3px);
+  transform: translateX(3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 </style>
