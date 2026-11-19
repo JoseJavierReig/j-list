@@ -12,8 +12,14 @@ const simpleCards = [
 </script>
 <template>
   <div class="view-container">
-    <h1 class="title">Buenos días</h1>
-    <h2 class="subtitle">Este es el resumen de tu hogar</h2>
+    <!-- Cabecera de Dashboard -->
+     <div class="separator-container wraped-container">
+      <div class="vertical-container">
+        <h1 class="title">Buenos días</h1>
+        <h2 class="subtitle">Este es el resumen de tu hogar</h2>
+      </div>
+    </div>
+    <!-- Contenedor de cards simples -->
     <div class="simple-container wraped-container">
       <Card 
         v-for="simpleCard in simpleCards"
