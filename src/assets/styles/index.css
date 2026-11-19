@@ -8,11 +8,11 @@
   --third-light: #d9a86c;
 
   /* Paleta de colores dark mode */
-  --bg-dark-1: #18211c;
-  --bg-dark-2: #243129;
-  --first-dark: #8eae96;
-  --second-dark: #dce6dc;
-  --third-dark: #e0b77e;
+  --bg-dark-1: #19231d;
+  --bg-dark-2: #29372e;
+  --first-dark: #83a88d;
+  --second-dark: #d3ded4;
+  --third-dark: #d9ad73;
 
   /* Tipografía de la herramienta */
   --header-txt: 'Inter', sans-serif;

@@ -1,10 +1,20 @@
 <script setup lang="ts">
+  // Vue
+  import { ref } from 'vue'
+  // Quasar
+  import { Dark } from 'quasar'
   // Stores
   import { useSidebarStore } from '../stores/sidebar'
 
   // Propiedades
   const sidebarStore = useSidebarStore()
+  const isDark = ref(Dark.isActive)
 
+  // Metodos
+  const toggleTheme = () => {
+    isDark.value = !isDark.value
+    Dark.set(isDark.value)
+  }
 </script>
 <template>
   <div class="nav-container separator-container">
@@ -20,7 +30,11 @@
       <span>J-List</span>
     </div>
     <div class="vertical-center-container end-container">
-      <q-btn round flat icon="dark_mode" />
+      <q-btn
+        round 
+        flat 
+        icon="dark_mode"
+        @click="toggleTheme" />
     </div>
   </div>
 </template>

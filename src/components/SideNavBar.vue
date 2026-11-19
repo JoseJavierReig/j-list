@@ -51,7 +51,7 @@
     height: calc(100vh - 74px);
     width: 300px;
     padding-top: 0;
-    transition: all 0.5s ease;
+    transition: width 0.5s ease;
     align-items: flex-start;
     z-index: 2;
   }
@@ -103,7 +103,7 @@
       transition-property: none;
     }
     .side-container-activated {
-      transition: all 0.5s ease;
+      transition: width 0.5s ease;
       padding-bottom: 8px;
     }
   }
