@@ -171,7 +171,8 @@
         :subcategories="category.subcategories" />
       <Add-card
         title="Nueva categoría"
-        description="Añade una nueva categoría para organizar tus productos." />
+        description="Añade una nueva categoría para organizar tus productos."
+        @open-add="dialogs.addCatalog = true" />
     </div>
   </div>
 </template>

@@ -1,10 +1,18 @@
 <script setup lang="ts">
+  // Propiedades heredades
   interface Props {
     title: string,
     description: string
   }
   const props = defineProps<Props>()
 
+  // Propiedades
+  const emit = defineEmits(['openAdd']);
+
+  // Metodos
+  const openAddDialog = () => {
+    emit('openAdd')
+  }
 </script>
 <template>
   <div class="column-container vertical-center-container add-card-container">
@@ -12,7 +20,8 @@
     <q-btn
       round
       icon="add"
-      class="btn-icon" />
+      class="btn-icon"
+      @click="openAddDialog" />
     <!-- Título y subtítulo -->
     <span class="title-card">{{ props.title }}</span>
     <span class="subtitle-card">{{ props.description }}</span>
