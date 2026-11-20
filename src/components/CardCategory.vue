@@ -9,11 +9,14 @@
   const props = defineProps<Props>()
 
   // Propiedades
-  const emit = defineEmits(['editForm']);
+  const emit = defineEmits(['editForm', 'deleteForm']);
 
   // Metodos
   const editForm = () => {
     emit('editForm')
+  }
+  const deleteForm = () => {
+    emit('deleteForm')
   }
 
 </script>
@@ -57,7 +60,8 @@
         round
         flat
         icon="delete"
-        class="btn-icon-mini btn-icon-alter">
+        class="btn-icon-mini btn-icon-alter"
+        @click="deleteForm">
         <q-tooltip>Eliminar la categoría</q-tooltip>
       </q-btn>
     </div>
@@ -78,7 +82,7 @@
               <q-item-section no-wrap>Editar la categoría</q-item-section>
             </q-item>
             <q-separator class="separator" />
-            <q-item clickable v-close-popup>
+            <q-item clickable v-close-popup @click="deleteForm">
               <q-item-section no-wrap>Eliminar la categoría</q-item-section>
             </q-item>
           </q-list>

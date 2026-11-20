@@ -14,7 +14,8 @@
     {id: '3', name: 'Por Comprar', description: 'descripcion general', icon: 'medical_services', subcategories: '0', color: '#43a047'},
   ]
   const dialogs = reactive({
-    addCatalog: false
+    addCatalog: false,
+    confirmDelete: false
   })
   const addForm = reactive({
     name: '',
@@ -68,8 +69,8 @@
     addForm.icon = ''
     addForm.color = '#43A047'
   }
-  const closeDialog = () => {
-    dialogs.addCatalog = false
+  const closeDialog = (dialog: keyof typeof dialogs) => {
+    dialogs[dialog] = false
     cleanForm()
   }
   const editForm = (category: Category) => {
@@ -78,6 +79,10 @@
     addForm.icon = category.icon
     addForm.color = category.color
     dialogs.addCatalog = true
+  }
+  const deleteForm = (category: Category) => {
+    console.log('Categoria a borrar: ', category)
+    dialogs.confirmDelete = true
   }
 </script>
 <template>
@@ -92,7 +97,7 @@
             <h2 class="subtitle">Introduce los datos de la nueva categoría.</h2>
           </div>
           <q-space />
-          <q-btn icon="close" flat round dense @click="closeDialog" />
+          <q-btn icon="close" flat round dense @click="closeDialog('addCatalog')" />
         </q-card-section>
         <!-- Contenido de la card -->
         <q-card-section class="column-container">
@@ -153,11 +158,30 @@
         </q-card-section>
         <!-- Botones de acción -->
         <q-card-actions align="right">
-          <q-btn flat label="Cancelar" class="btn-icon-alter btn-base" @click="closeDialog" />
-          <q-btn flat label="Guardar" class="btn-icon btn-base" @click="closeDialog" />
+          <q-btn flat label="Cancelar" class="btn-icon-alter btn-base" @click="closeDialog('addCatalog')" />
+          <q-btn flat label="Guardar" class="btn-icon btn-base" @click="closeDialog('addCatalog')" />
         </q-card-actions>
       </q-card>
     </q-dialog>
+    <!-- Pop-up confirmar borrado -->
+     <q-dialog v-model="dialogs.confirmDelete" persistent>
+      <q-card>
+        <!-- Cabecera de la card -->
+        <q-card-section class="vertical-start-container">
+          <div class="column-container">
+            <h1 class="title">Eliminar categoría</h1>
+            <h2 class="subtitle">¿Estas seguro de querer eliminar esta categoría?</h2>
+          </div>
+          <q-space />
+          <q-btn icon="close" flat round dense @click="closeDialog('confirmDelete')" />
+        </q-card-section>
+        <!-- Botones de acción -->
+        <q-card-actions align="right">
+          <q-btn flat label="Cancelar" class="btn-icon-alter btn-base" @click="closeDialog('confirmDelete')" />
+          <q-btn label="Eliminar" class="btn-base" color="negative" @click="closeDialog('confirmDelete')" />
+        </q-card-actions>
+      </q-card>
+     </q-dialog>
     <!-- Cabecera de Categorías -->
     <div class="separator-container wraped-container">
       <div class="vertical-container">
@@ -188,7 +212,8 @@
         :title="category.name"
         :description="category.description"
         :subcategories="category.subcategories"
-        @edit-form="editForm(category)" />
+        @edit-form="editForm(category)"
+        @delete-form="deleteForm(category)" />
       <Add-card
         title="Nueva categoría"
         description="Añade una nueva categoría para organizar tus productos."
