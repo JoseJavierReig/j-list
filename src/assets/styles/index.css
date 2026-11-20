@@ -96,13 +96,17 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
   line-height: 1.5;
 }
-.title, .title-card {
+.title, .title-card, .title-input {
   text-align: left;
   font-size: 24px;
   font-weight: var(--header-weight);
 }
 .title-card {
   font-size: 20px;
+}
+.title-input {
+  font-size: 16px;
+  margin-right: 10px;
 }
 .subtitle, .subtitle-card {
   text-align: left;
@@ -146,7 +150,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* Contenedores de la herramienta */
-.simple-container, .end-container, .vertical-end-container, .column-container, .vertical-center-container, .center-container, .full-center-container, .separator-container {
+.simple-container, .end-container, .vertical-end-container, .vertical-start-container, .column-container, .vertical-center-container, .center-container, .full-center-container, .separator-container {
   display: flex;
   width: 100%;
   gap: 8px;
@@ -165,6 +169,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 .vertical-end-container {
   align-items: flex-end;
+}
+.vertical-start-container {
+  align-items: flex-start;
 }
 .center-container {
   justify-content: center;
@@ -206,6 +213,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn-icon-mini {
   font-size: 12px;
+}
+.btn-base {
+  padding: 7px 17px !important;
+  border-radius: 10px;
 }
 
 /* Chips */
