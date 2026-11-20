@@ -96,16 +96,27 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
   line-height: 1.5;
 }
-.title {
+.title, .title-card {
   text-align: left;
   font-size: 24px;
   font-weight: var(--header-weight);
 }
-.subtitle {
+.title-card {
+  font-size: 20px;
+}
+.subtitle, .subtitle-card {
   text-align: left;
   font-size: 18px;
   font-weight: inherit;
   opacity: 0.5;
+}
+.subtitle-card {
+  font-size: 14px;
+}
+
+/* Limpiar paddings */
+.clean-padding {
+  padding: 0px !important;
 }
 
 /* Estilos numéricos */
@@ -135,12 +146,13 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* Contenedores de la herramienta */
-.simple-container, .end-container, .column-container, .vertical-center-container, .center-container, .full-center-container, .separator-container {
+.simple-container, .end-container, .vertical-end-container, .column-container, .vertical-center-container, .center-container, .full-center-container, .separator-container {
   display: flex;
   width: 100%;
   gap: 8px;
   padding: 8px;
   flex-wrap: nowrap;
+  position: relative;
 }
 .column-container {
   flex-direction: column;
@@ -150,6 +162,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 .end-container {
   justify-content: flex-end;
+}
+.vertical-end-container {
+  align-items: flex-end;
 }
 .center-container {
   justify-content: center;
@@ -170,19 +185,32 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Iconos */
+.icon-max {
+  font-size: 45px;
+}
 .icon-base {
-  width: 3em;
+  font-size: 28px;
+}
+.icon-mini {
+  font-size: 16px;
 }
 
 /* Botones */
-.btn-icon {
+.btn-icon, .btn-icon-mini {
   background-color: var(--secondary);
   color: var(--app-bg)
+}
+.btn-icon-alter{
+  background-color: color-mix(in srgb, var(--primary) 20%, transparent);
+  color: var(--secondary)
+}
+.btn-icon-mini {
+  font-size: 12px;
 }
 
 /* Chips */
 .chip-base {
-  background-color: color-mix(in srgb, var(--primary) 20%, transparent);;
+  background-color: color-mix(in srgb, var(--primary) 20%, transparent);
   padding: 7px 17px;
   border-radius: 20px;
 }

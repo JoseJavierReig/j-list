@@ -1,3 +1,15 @@
+<script setup lang="ts">
+// Componenetes
+import CardCategory from '../components/CardCategory.vue';
+
+// Propiedades
+const categories = [
+  {title: 'Productos', description: 'descripcion general', icon: 'category', subcategories: '0'},
+  {title: 'Stock', description: 'descripcion general', icon: 'store', subcategories: '0'},
+  {title: 'Por Comprar', description: 'descripcion general', icon: 'shopping_cart', subcategories: '0'},
+  {title: 'Gasto Mensual', description: 'descripcion general', icon: 'account_balance_wallet', subcategories: '0'},
+]
+</script>
 <template>
   <div class="view-container">
     <!-- Cabecera de Categorías -->
@@ -21,7 +33,15 @@
         </q-btn>
       </div>
     </div>
-    
+    <!-- Sección de cards -->
+    <div class="simple-container wraped-container">
+      <Card-category
+        v-for="category in categories"
+        :icon="category.icon"
+        :title="category.title"
+        :description="category.description"
+        :subcategories="category.subcategories" />
+    </div>
   </div>
 </template>
 <style scoped>
