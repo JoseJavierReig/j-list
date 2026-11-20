@@ -51,6 +51,7 @@
         <q-tooltip>Eliminar la categoría</q-tooltip>
       </q-btn>
     </div>
+    <!-- Botones de acción para móvil -->
     <div class="action-btn">
       <q-btn
         round

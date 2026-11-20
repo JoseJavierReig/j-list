@@ -1,13 +1,13 @@
 <script setup lang="ts">
 // Componenetes
 import CardCategory from '../components/CardCategory.vue';
+import AddCard from '../components/AddCard.vue'
 
 // Propiedades
 const categories = [
   {title: 'Productos', description: 'descripcion general', icon: 'category', subcategories: '0'},
   {title: 'Stock', description: 'descripcion general', icon: 'store', subcategories: '0'},
   {title: 'Por Comprar', description: 'descripcion general', icon: 'shopping_cart', subcategories: '0'},
-  {title: 'Gasto Mensual', description: 'descripcion general', icon: 'account_balance_wallet', subcategories: '0'},
 ]
 </script>
 <template>
@@ -41,6 +41,9 @@ const categories = [
         :title="category.title"
         :description="category.description"
         :subcategories="category.subcategories" />
+      <Add-card
+        title="Nueva categoría"
+        description="Añade una nueva categoría para organizar tus productos." />
     </div>
   </div>
 </template>
