@@ -25,7 +25,7 @@
         </div>
     </div>
     <!-- Botones de acción -->
-    <div class="vertical-end-container end-container clean-padding">
+    <div class="vertical-end-container end-container clean-padding btn-container">
       <!-- Botón para acceder a la categoria -->
       <q-btn
         round
@@ -51,13 +51,36 @@
         <q-tooltip>Eliminar la categoría</q-tooltip>
       </q-btn>
     </div>
+    <div class="action-btn">
+      <q-btn
+        round
+        flat
+        icon="more_vert"
+        class="btn-icon-mini btn-icon-alter">
+        <q-menu>
+          <q-list role="menu" style="min-width: 100px">
+            <q-item clickable v-close-popup>
+              <q-item-section no-wrap>Entrar en la categoría</q-item-section>
+            </q-item>
+            <q-separator class="separator" />
+            <q-item clickable v-close-popup>
+              <q-item-section no-wrap>Editar la categoría</q-item-section>
+            </q-item>
+            <q-separator class="separator" />
+            <q-item clickable v-close-popup>
+              <q-item-section no-wrap>Eliminar la categoría</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .card-container-catalog {
   flex: 1 1 calc(50% - 16px);
-  min-width: 425px;
+  min-width: 380px;
   background-color: var(--app-bg);
   border-radius: 10px;
   cursor: pointer;
@@ -67,6 +90,9 @@
   transform: translateX(3px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
+.action-btn {
+  display: none;
+}
 .icon-category {
   width: auto;
   max-height: fit-content;
@@ -74,4 +100,17 @@
   padding: 17px;
   border-radius: 10px;
 }
+@media screen and (max-width: 768px) {
+    .card-container-catalog {
+      min-width: 310px;
+    }
+    .btn-container {
+      display: none;
+    }
+    .action-btn {
+      display: flex;
+      position: absolute;
+      right: 8px;
+    }
+  }
 </style>
