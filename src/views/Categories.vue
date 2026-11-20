@@ -4,6 +4,7 @@
   // Componenetes
   import CardCategory from '../components/CardCategory.vue';
   import AddCard from '../components/AddCard.vue'
+  import ConfirmDelete from '../components/Pop-ups/ConfirmDelete.vue';
   // Modelos
   import type { Category } from '../models/Category.ts';
 
@@ -164,24 +165,11 @@
       </q-card>
     </q-dialog>
     <!-- Pop-up confirmar borrado -->
-     <q-dialog v-model="dialogs.confirmDelete" persistent>
-      <q-card>
-        <!-- Cabecera de la card -->
-        <q-card-section class="vertical-start-container">
-          <div class="column-container">
-            <h1 class="title">Eliminar categoría</h1>
-            <h2 class="subtitle">¿Estas seguro de querer eliminar esta categoría?</h2>
-          </div>
-          <q-space />
-          <q-btn icon="close" flat round dense @click="closeDialog('confirmDelete')" />
-        </q-card-section>
-        <!-- Botones de acción -->
-        <q-card-actions align="right">
-          <q-btn flat label="Cancelar" class="btn-icon-alter btn-base" @click="closeDialog('confirmDelete')" />
-          <q-btn label="Eliminar" class="btn-base" color="negative" @click="closeDialog('confirmDelete')" />
-        </q-card-actions>
-      </q-card>
-     </q-dialog>
+    <Confirm-delete
+      title="Eliminar categoría"
+      subtitle="¿Estas seguro de querer eliminar esta categoría?"
+      :dialog="dialogs.confirmDelete"
+      @close-dialog="closeDialog('confirmDelete')" />
     <!-- Cabecera de Categorías -->
     <div class="separator-container wraped-container">
       <div class="vertical-container">
@@ -206,6 +194,7 @@
     </div>
     <!-- Sección de cards -->
     <div class="simple-container wraped-container">
+      <!-- Cards de categorías -->
       <Card-category
         v-for="category in categories"
         :icon="category.icon"
@@ -214,6 +203,7 @@
         :subcategories="category.subcategories"
         @edit-form="editForm(category)"
         @delete-form="deleteForm(category)" />
+      <!-- Card de agregación -->
       <Add-card
         title="Nueva categoría"
         description="Añade una nueva categoría para organizar tus productos."
