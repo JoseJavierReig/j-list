@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  // Propiedades heredades
   interface Props {
     icon: string,
     title: string,
@@ -6,6 +7,14 @@
     subcategories: string
   }
   const props = defineProps<Props>()
+
+  // Propiedades
+  const emit = defineEmits(['editForm']);
+
+  // Metodos
+  const editForm = () => {
+    emit('editForm')
+  }
 
 </script>
 <template>
@@ -39,7 +48,8 @@
         round
         flat
         icon="edit"
-        class="btn-icon-mini btn-icon-alter">
+        class="btn-icon-mini btn-icon-alter"
+        @click="editForm">
         <q-tooltip>Editar la categoría</q-tooltip>
       </q-btn>
         <!-- Botón para eliminar la categoría -->
@@ -64,7 +74,7 @@
               <q-item-section no-wrap>Entrar en la categoría</q-item-section>
             </q-item>
             <q-separator class="separator" />
-            <q-item clickable v-close-popup>
+            <q-item clickable v-close-popup @click="editForm">
               <q-item-section no-wrap>Editar la categoría</q-item-section>
             </q-item>
             <q-separator class="separator" />
@@ -113,5 +123,5 @@
       position: absolute;
       right: 8px;
     }
-  }
+}
 </style>

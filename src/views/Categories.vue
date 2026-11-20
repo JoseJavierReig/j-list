@@ -4,12 +4,14 @@
   // Componenetes
   import CardCategory from '../components/CardCategory.vue';
   import AddCard from '../components/AddCard.vue'
+  // Modelos
+  import type { Category } from '../models/Category.ts';
 
   // Propiedades
   const categories = [
-    {title: 'Productos', description: 'descripcion general', icon: 'category', subcategories: '0'},
-    {title: 'Stock', description: 'descripcion general', icon: 'store', subcategories: '0'},
-    {title: 'Por Comprar', description: 'descripcion general', icon: 'shopping_cart', subcategories: '0'},
+    {id: '1', name: 'Productos', description: 'descripcion general', icon: 'restaurant', subcategories: '0', color: '#43a047'},
+    {id: '2', name: 'Stock', description: 'descripcion general', icon: 'checkroom', subcategories: '0', color: '#43a047'},
+    {id: '3', name: 'Por Comprar', description: 'descripcion general', icon: 'medical_services', subcategories: '0', color: '#43a047'},
   ]
   const dialogs = reactive({
     addCatalog: false
@@ -59,6 +61,24 @@
     '#EC407A', // Rosa intenso
     '#26A69A'  // Verde azulado
   ]
+  // Métodos
+  const cleanForm = () => {
+    addForm.name = ''
+    addForm.description = ''
+    addForm.icon = ''
+    addForm.color = '#43A047'
+  }
+  const closeDialog = () => {
+    dialogs.addCatalog = false
+    cleanForm()
+  }
+  const editForm = (category: Category) => {
+    addForm.name = category.name
+    addForm.description = category.description
+    addForm.icon = category.icon
+    addForm.color = category.color
+    dialogs.addCatalog = true
+  }
 </script>
 <template>
   <div class="view-container">
@@ -72,7 +92,7 @@
             <h2 class="subtitle">Introduce los datos de la nueva categoría.</h2>
           </div>
           <q-space />
-          <q-btn icon="close" flat round dense v-close-popup />
+          <q-btn icon="close" flat round dense @click="closeDialog" />
         </q-card-section>
         <!-- Contenido de la card -->
         <q-card-section class="column-container">
@@ -103,7 +123,6 @@
                   <q-item-section avatar>
                     <q-icon :name="scope.opt.value" />
                   </q-item-section>
-
                   <q-item-section>
                     <q-item-label>{{ scope.opt.label }}</q-item-label>
                   </q-item-section>
@@ -134,8 +153,8 @@
         </q-card-section>
         <!-- Botones de acción -->
         <q-card-actions align="right">
-          <q-btn flat label="Cancelar" class="btn-icon-alter btn-base" v-close-popup />
-          <q-btn flat label="Guardar" class="btn-icon btn-base" v-close-popup />
+          <q-btn flat label="Cancelar" class="btn-icon-alter btn-base" @click="closeDialog" />
+          <q-btn flat label="Guardar" class="btn-icon btn-base" @click="closeDialog" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -166,9 +185,10 @@
       <Card-category
         v-for="category in categories"
         :icon="category.icon"
-        :title="category.title"
+        :title="category.name"
         :description="category.description"
-        :subcategories="category.subcategories" />
+        :subcategories="category.subcategories"
+        @edit-form="editForm(category)" />
       <Add-card
         title="Nueva categoría"
         description="Añade una nueva categoría para organizar tus productos."

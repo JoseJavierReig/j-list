@@ -28,10 +28,15 @@
   </div>
 </template>
 <style scoped>
+.add-card-container {
+  flex: 1 1 calc(50% - 16px);
+  min-width: 380px;
+  border-radius: 10px;
+  border: 1px dashed var(--secondary);
+}
+@media screen and (max-width: 768px) {
   .add-card-container {
-    flex: 1 1 calc(50% - 16px);
-    min-width: 380px;
-    border-radius: 10px;
-    border: 1px dashed var(--secondary);
+    min-width: 310px;
   }
+}
 </style>
