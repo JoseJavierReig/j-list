@@ -81,7 +81,7 @@
     addForm.color = category.color
     dialogs.addCatalog = true
   }
-  const deleteForm = (category: Category) => {
+  const deleteCategory = (category: Category) => {
     console.log('Categoria a borrar: ', category)
     dialogs.confirmDelete = true
   }
@@ -202,7 +202,7 @@
         :description="category.description"
         :subcategories="category.subcategories"
         @edit-form="editForm(category)"
-        @delete-form="deleteForm(category)" />
+        @delete-form="deleteCategory(category)" />
       <!-- Card de agregación -->
       <Add-card
         title="Nueva categoría"
