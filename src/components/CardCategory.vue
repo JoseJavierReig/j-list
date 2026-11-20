@@ -3,7 +3,7 @@
     icon: string,
     title: string,
     description: string,
-    subcategories: number
+    subcategories: string
   }
   const props = defineProps<Props>()
 
