@@ -1,11 +1,233 @@
+<script setup lang="ts">
+  // Vue
+  import { reactive } from 'vue'
+  // Componenetes
+  import CardCategory from '../../components/CardCategory.vue';
+  import CardSubCategory from '../../components/CardSubCategory.vue';
+
+  // Propiedades
+  const subcategories = [
+    {id: '1', name: 'Carne', description: 'descripcion general', icon: 'restaurant', products: '0', color: '#43a047'},
+    {id: '2', name: 'Pescado', description: 'descripcion general', icon: 'checkroom', products: '0', color: '#ffeb3b'},
+    {id: '3', name: 'Verdura', description: 'descripcion general', icon: 'medical_services', products: '0', color: '#ff5722'},
+  ]
+  const dialogs = reactive({
+    addSubcategory: false,
+    addCategory: false
+  })
+  const addForm = reactive({
+    name: '',
+    description: '',
+  })
+  const editCatalogForm = reactive({
+    name: '',
+    description: '',
+    icon: '',
+    color: '#43A047'
+  })
+  const icons = [
+    {label: 'Home', value: 'home'},
+    {label: 'Restaurant', value: 'restaurant'},
+    {label: 'Checkroom', value: 'checkroom'},
+    {label: 'Cleaning services', value: 'cleaning_services'},
+    {label: 'Pets', value: 'pets'},
+    {label: 'Medical services', value: 'medical_services'},
+    {label: 'Devices', value: 'devices'},
+    {label: 'Sports esports', value: 'sports_esports'},
+    {label: 'Redeem', value: 'redeem'},
+    {label: 'Fitness center', value: 'fitness_center'},
+    {label: 'Menu book', value: 'menu_book'},
+    {label: 'Flight', value: 'flight'},
+    {label: 'Directions bus', value: 'directions_bus'},
+    {label: 'Coffee', value: 'coffee'},
+    {label: 'Eco', value: 'eco'},
+    {label: 'Favorite', value: 'favorite'},
+    {label: 'Category', value: 'category'},
+  ]
+  const colors = [
+    '#43A047', // Verde
+    '#8BC34A', // Verde lima
+    '#009688', // Turquesa
+    '#00BCD4', // Cian
+    '#2196F3', // Azul
+    '#3F51B5', // Índigo
+    '#673AB7', // Violeta
+    '#9C27B0', // Púrpura
+    '#E91E63', // Rosa
+    '#F44336', // Rojo
+    '#FF5722', // Naranja intenso
+    '#FF9800', // Naranja
+    '#FFC107', // Ámbar
+    '#FFEB3B', // Amarillo
+    '#795548', // Marrón
+    '#607D8B', // Azul grisáceo
+    '#EC407A', // Rosa intenso
+    '#26A69A'  // Verde azulado
+  ]
+  // Métodos
+  const cleanForm = () => {
+    addForm.name = ''
+    addForm.description = ''
+  }
+  const closeDialog = (dialog: keyof typeof dialogs) => {
+    dialogs[dialog] = false
+    cleanForm()
+  }
+</script>
 <template>
   <div class="view-container">
+    <!-- Pop-up agregar categorias -->
+    <q-dialog v-model="dialogs.addCategory" persistent>
+      <q-card>
+        <!-- Cabecera de la card -->
+        <q-card-section class="vertical-start-container">
+          <div class="column-container">
+            <h1 class="title">Nueva categoría</h1>
+            <h2 class="subtitle">Introduce los datos de la nueva categoría.</h2>
+          </div>
+          <q-space />
+          <q-btn icon="close" flat round dense @click="closeDialog('addCategory')" />
+        </q-card-section>
+        <!-- Contenido de la card -->
+        <q-card-section class="column-container">
+          <div class="column-container">
+            <!-- Input de nombre -->
+            <q-input v-model="editCatalogForm.name" filled label="Nombre *">
+            </q-input>
+            <q-space />
+            <!-- Input de descripción -->
+            <q-input type="textarea" v-model="editCatalogForm.description" filled label="Descripción opcional... ">
+            </q-input>
+            <q-space/>
+            <!-- Selector de iconos -->
+            <q-select
+              filled
+              v-model="editCatalogForm.icon" 
+              :options="icons"
+              option-label="label"
+              option-value="value"
+              emit-value
+              map-options
+              label="Seleccionar icono">
+              <template #prepend>
+                <q-icon :name="editCatalogForm.icon || 'category'" />
+              </template>
+              <template #option="scope">
+                <q-item v-bind="scope.itemProps">
+                  <q-item-section avatar>
+                    <q-icon :name="scope.opt.value" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>{{ scope.opt.label }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
+            <q-space/>
+            <!-- Color picker -->
+            <div class="vertical-center-container">
+              <span class="title-input">Seleccionar color: </span>
+              <q-btn
+                round
+                unelevated
+                :style="{ backgroundColor: editCatalogForm.color }"
+                icon="palette"
+                :color="editCatalogForm.color">
+                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                  <q-color
+                    v-model="editCatalogForm.color"
+                    format-model="hex"
+                    default-view="palette"
+                    :palette="colors"
+                  />
+                </q-popup-proxy>
+              </q-btn>
+            </div>
+          </div>
+        </q-card-section>
+        <!-- Botones de acción -->
+        <q-card-actions align="right">
+          <q-btn flat label="Cancelar" class="btn-icon-alter btn-base" @click="closeDialog('addCategory')" />
+          <q-btn flat label="Guardar" class="btn-icon btn-base" @click="closeDialog('addCategory')" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- Pop-up agregar subcategorias -->
+    <q-dialog v-model="dialogs.addSubcategory" persistent>
+      <q-card>
+        <!-- Cabecera de la card -->
+        <q-card-section class="vertical-start-container">
+          <div class="column-container">
+            <h1 class="title">Nueva subcategoría</h1>
+            <h2 class="subtitle">Introduce los datos de la nueva subcategoría.</h2>
+          </div>
+          <q-space />
+          <q-btn icon="close" flat round dense @click="closeDialog('addSubcategory')" />
+        </q-card-section>
+        <!-- Contenido de la card -->
+        <q-card-section class="column-container">
+          <div class="column-container">
+            <!-- Input de nombre -->
+            <q-input v-model="addForm.name" filled label="Nombre *">
+            </q-input>
+            <q-space />
+            <!-- Input de descripción -->
+            <q-input type="textarea" v-model="addForm.description" filled label="Descripción opcional... ">
+            </q-input>
+            <q-space/>
+          </div>
+        </q-card-section>
+        <!-- Botones de acción -->
+        <q-card-actions align="right">
+          <q-btn flat label="Cancelar" class="btn-icon-alter btn-base" @click="closeDialog('addSubcategory')" />
+          <q-btn flat label="Guardar" class="btn-icon btn-base" @click="closeDialog('addSubcategory')" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- Miga de pan -->
     <div class="card-container">
       <q-breadcrumbs>
         <q-breadcrumbs-el class="breadCrumbs-base" label="Categorías" icon="sell" to="/categories" />
         <q-breadcrumbs-el label="Alimentación" icon="restaurant" />
       </q-breadcrumbs>
+    </div>
+    <!-- Card de categoría -->
+    <div class="simple-container clean-padding-side">
+      <Card-category
+        icon="restaurant"
+        title="Alimentación"
+        description="descripcion general"
+        color="#43a047"
+        subcategories="3"
+        :data="false"
+      />
+    </div>
+    <!-- Sección subcategorías -->
+    <div class="column-container card-container ">
+       <!-- Cabecera -->
+      <div class="separator-container">
+        <div class="vertical-center-container clean-padding">
+          <q-icon name="layers" size="28px" />
+          <h1 class="title">Subategorías</h1>
+        </div>
+        <q-btn
+          round
+          icon="add"
+          class="btn-icon"
+          @click="dialogs.addSubcategory = true">
+          <q-tooltip>Nueva subcategoría</q-tooltip>
+        </q-btn>
+      </div>
+      <!-- Sección de cards -->
+      <div class="simple-container wraped-container">
+        <Card-sub-category
+          v-for="subcategory in subcategories"
+          :icon="subcategory.icon"
+          :title="subcategory.name"
+          :description="subcategory.description"
+          :products="subcategory.products"
+        />
+      </div>
     </div>
   </div>
 </template>

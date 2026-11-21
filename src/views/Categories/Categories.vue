@@ -13,12 +13,12 @@
   // Propiedades
   const router = useRouter()
   const categories = [
-    {id: '1', name: 'Alimentación', description: 'descripcion general', icon: 'restaurant', subcategories: '0', color: '#43a047'},
-    {id: '2', name: 'Stock', description: 'descripcion general', icon: 'checkroom', subcategories: '0', color: '#ffeb3b'},
-    {id: '3', name: 'Por Comprar', description: 'descripcion general', icon: 'medical_services', subcategories: '0', color: '#ff5722'},
+    {id: '1', name: 'Alimentación', description: 'descripcion general', icon: 'restaurant', subcategories: '3', color: '#43a047'},
+    {id: '2', name: 'Limpieza', description: 'descripcion general', icon: 'cleaning_services', subcategories: '0', color: '#ffeb3b'},
+    {id: '3', name: 'Higuiene', description: 'descripcion general', icon: 'medical_services', subcategories: '0', color: '#ff5722'},
   ]
   const dialogs = reactive({
-    addCatalog: false,
+    addCategory: false,
     confirmDelete: false
   })
   const addForm = reactive({
@@ -82,7 +82,7 @@
     addForm.description = category.description
     addForm.icon = category.icon
     addForm.color = category.color
-    dialogs.addCatalog = true
+    dialogs.addCategory = true
   }
   const deleteCategory = (category: Category) => {
     console.log(category)
@@ -101,7 +101,7 @@
 <template>
   <div class="view-container">
     <!-- Pop-up agregar categorias -->
-    <q-dialog v-model="dialogs.addCatalog" persistent>
+    <q-dialog v-model="dialogs.addCategory" persistent>
       <q-card>
         <!-- Cabecera de la card -->
         <q-card-section class="vertical-start-container">
@@ -110,7 +110,7 @@
             <h2 class="subtitle">Introduce los datos de la nueva categoría.</h2>
           </div>
           <q-space />
-          <q-btn icon="close" flat round dense @click="closeDialog('addCatalog')" />
+          <q-btn icon="close" flat round dense @click="closeDialog('addCategory')" />
         </q-card-section>
         <!-- Contenido de la card -->
         <q-card-section class="column-container">
@@ -171,8 +171,8 @@
         </q-card-section>
         <!-- Botones de acción -->
         <q-card-actions align="right">
-          <q-btn flat label="Cancelar" class="btn-icon-alter btn-base" @click="closeDialog('addCatalog')" />
-          <q-btn flat label="Guardar" class="btn-icon btn-base" @click="closeDialog('addCatalog')" />
+          <q-btn flat label="Cancelar" class="btn-icon-alter btn-base" @click="closeDialog('addCategory')" />
+          <q-btn flat label="Guardar" class="btn-icon btn-base" @click="closeDialog('addCategory')" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -199,7 +199,7 @@
           round
           icon="add"
           class="btn-icon"
-          @click="dialogs.addCatalog = true">
+          @click="dialogs.addCategory = true">
           <q-tooltip>Nueva categoría</q-tooltip>
         </q-btn>
       </div>
@@ -214,18 +214,24 @@
         :description="category.description"
         :color="category.color"
         :subcategories="category.subcategories"
+        :data="true"
         @edit-form="editForm(category)"
         @delete-form="deleteCategory(category)"
-        @nav-catalog="navigateToCategory(category.id)" />
+        @nav-category="navigateToCategory(category.id)" />
       <!-- Card de agregación -->
       <Add-card
         title="Nueva categoría"
         description="Añade una nueva categoría para organizar tus productos."
-        @open-add="dialogs.addCatalog = true" />
+        @open-add="dialogs.addCategory = true" />
     </div>
   </div>
 </template>
 <style scoped>
+  .card-container-category:hover {
+    transform: translateY(-3px);
+    transform: translateX(3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
   .btn-categories {
     width: auto;
   }

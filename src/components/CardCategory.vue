@@ -5,12 +5,13 @@
     title: string,
     description: string,
     color: string,
-    subcategories: string
+    subcategories: string,
+    data: boolean
   }
   const props = defineProps<Props>()
 
   // Propiedades
-  const emit = defineEmits(['editForm', 'deleteForm', 'navCatalog']);
+  const emit = defineEmits(['editForm', 'deleteForm', 'navCategory']);
 
   // Metodos
   const editForm = () => {
@@ -19,8 +20,8 @@
   const deleteForm = () => {
     emit('deleteForm')
   }
-  const navCatalog = () => {
-    emit('navCatalog')
+  const navCategory = () => {
+    emit('navCategory')
   }
   const getBorderColor = () => {
     return {
@@ -31,7 +32,7 @@
 </script>
 <template>
   <div 
-    class="card-container-catalog simple-container"
+    class="card-container-category simple-container"
     :style="getBorderColor()">
     <!-- Sección de icono -->
     <div class="column-container icon-category">
@@ -51,11 +52,12 @@
     <div class="vertical-end-container end-container clean-padding btn-container">
       <!-- Botón para acceder a la categoria -->
       <q-btn
+        v-if="data"
         round
         flat
         icon="chevron_right"
         class="btn-icon-mini btn-icon-alter"
-        @click="navCatalog">
+        @click="navCategory">
         <q-tooltip>Entrar en la categoría</q-tooltip>
       </q-btn>
         <!-- Botón para editar la categoría -->
@@ -86,10 +88,10 @@
         class="btn-icon-mini btn-icon-alter">
         <q-menu>
           <q-list role="menu" style="min-width: 100px">
-            <q-item clickable v-close-popup @click="navCatalog">
+            <q-item  v-if="data" clickable v-close-popup @click="navCategory">
               <q-item-section no-wrap>Entrar en la categoría</q-item-section>
             </q-item>
-            <q-separator class="separator" />
+            <q-separator v-if="data" class="separator" />
             <q-item clickable v-close-popup @click="editForm">
               <q-item-section no-wrap>Editar la categoría</q-item-section>
             </q-item>
@@ -105,18 +107,14 @@
 </template>
 
 <style scoped>
-.card-container-catalog {
+.card-container-category {
   flex: 1 1 calc(50% - 16px);
   min-width: 380px;
   background-color: var(--app-bg);
   border-radius: 10px;
   cursor: pointer;
 }
-.card-container-catalog:hover {
-  transform: translateY(-3px);
-  transform: translateX(3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
+
 .action-btn {
   display: none;
 }
@@ -128,7 +126,7 @@
   border-radius: 10px;
 }
 @media screen and (max-width: 768px) {
-    .card-container-catalog {
+    .card-container-category {
       min-width: 310px;
     }
     .btn-container {
