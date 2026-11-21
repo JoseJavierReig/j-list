@@ -20,7 +20,12 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/categories',
     name: 'categories',
-    component: () => import('../views/Categories.vue')
+    component: () => import('../views/Categories/Categories.vue')
+  },
+  {
+    path: '/categories/:id',
+    name: 'category_data',
+    component: () => import('../views/Categories/Data.vue')
   },
   {
     path: '/stores',

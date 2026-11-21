@@ -4,12 +4,13 @@
     icon: string,
     title: string,
     description: string,
+    color: string,
     subcategories: string
   }
   const props = defineProps<Props>()
 
   // Propiedades
-  const emit = defineEmits(['editForm', 'deleteForm']);
+  const emit = defineEmits(['editForm', 'deleteForm', 'navCatalog']);
 
   // Metodos
   const editForm = () => {
@@ -18,10 +19,20 @@
   const deleteForm = () => {
     emit('deleteForm')
   }
+  const navCatalog = () => {
+    emit('navCatalog')
+  }
+  const getBorderColor = () => {
+    return {
+      borderLeft: `5px solid ${props.color}`
+    }
+  }
 
 </script>
 <template>
-  <div class="card-container-catalog simple-container">
+  <div 
+    class="card-container-catalog simple-container"
+    :style="getBorderColor()">
     <!-- Sección de icono -->
     <div class="column-container icon-category">
       <q-icon :name="props.icon" class="icon-max" />
@@ -43,7 +54,8 @@
         round
         flat
         icon="chevron_right"
-        class="btn-icon-mini btn-icon-alter">
+        class="btn-icon-mini btn-icon-alter"
+        @click="navCatalog">
         <q-tooltip>Entrar en la categoría</q-tooltip>
       </q-btn>
         <!-- Botón para editar la categoría -->
@@ -74,7 +86,7 @@
         class="btn-icon-mini btn-icon-alter">
         <q-menu>
           <q-list role="menu" style="min-width: 100px">
-            <q-item clickable v-close-popup>
+            <q-item clickable v-close-popup @click="navCatalog">
               <q-item-section no-wrap>Entrar en la categoría</q-item-section>
             </q-item>
             <q-separator class="separator" />

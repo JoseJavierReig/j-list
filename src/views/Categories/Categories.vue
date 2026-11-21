@@ -1,18 +1,21 @@
 <script setup lang="ts">
   // Vue
   import { reactive } from 'vue'
+  // Router
+  import { useRouter } from 'vue-router'
   // Componenetes
-  import CardCategory from '../components/CardCategory.vue';
-  import AddCard from '../components/AddCard.vue'
-  import ConfirmDelete from '../components/Pop-ups/ConfirmDelete.vue';
+  import CardCategory from '../../components/CardCategory.vue';
+  import AddCard from '../../components/AddCard.vue'
+  import ConfirmDelete from '../../components/Pop-ups/ConfirmDelete.vue';
   // Modelos
-  import type { Category } from '../models/Category.ts';
+  import type { Category } from '../../models/Category.ts';
 
   // Propiedades
+  const router = useRouter()
   const categories = [
-    {id: '1', name: 'Productos', description: 'descripcion general', icon: 'restaurant', subcategories: '0', color: '#43a047'},
-    {id: '2', name: 'Stock', description: 'descripcion general', icon: 'checkroom', subcategories: '0', color: '#43a047'},
-    {id: '3', name: 'Por Comprar', description: 'descripcion general', icon: 'medical_services', subcategories: '0', color: '#43a047'},
+    {id: '1', name: 'Alimentación', description: 'descripcion general', icon: 'restaurant', subcategories: '0', color: '#43a047'},
+    {id: '2', name: 'Stock', description: 'descripcion general', icon: 'checkroom', subcategories: '0', color: '#ffeb3b'},
+    {id: '3', name: 'Por Comprar', description: 'descripcion general', icon: 'medical_services', subcategories: '0', color: '#ff5722'},
   ]
   const dialogs = reactive({
     addCatalog: false,
@@ -82,8 +85,17 @@
     dialogs.addCatalog = true
   }
   const deleteCategory = (category: Category) => {
-    console.log('Categoria a borrar: ', category)
+    console.log(category)
     dialogs.confirmDelete = true
+  }
+  const navigateToCategory = (id: string) => {
+    console.log('Entra en la categoria')
+    router.push({
+    name: 'category_data',
+    params: {
+      id
+    }
+  })
   }
 </script>
 <template>
@@ -200,9 +212,11 @@
         :icon="category.icon"
         :title="category.name"
         :description="category.description"
+        :color="category.color"
         :subcategories="category.subcategories"
         @edit-form="editForm(category)"
-        @delete-form="deleteCategory(category)" />
+        @delete-form="deleteCategory(category)"
+        @nav-catalog="navigateToCategory(category.id)" />
       <!-- Card de agregación -->
       <Add-card
         title="Nueva categoría"
