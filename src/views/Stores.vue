@@ -3,6 +3,7 @@
   import { ref, reactive } from 'vue';
   // Componentes
   import CardStore from '../components/CardStore.vue';
+  import ConfirmDelete from '../components/Pop-ups/ConfirmDelete.vue';
   // Modelos
   import type { StoreForm } from '../models/Store.ts'
 
@@ -19,7 +20,8 @@
     {id: '4', name: 'Lidl', type: { label: 'Supermercado', value: 'supermarket', icon: 'shopping_cart'}, imageUrl: url4, address: 'Calle 2', schedule: 'Lun - Dom: 8:00 - 22:00'},
   ]
   const dialogs = reactive({
-    addStore: false
+    addStore: false,
+    confirmDeleteStore: false,
   })
   const storeForm = reactive<StoreForm>({
     name: '',
@@ -63,6 +65,10 @@
     titleFormStore.value = 'Editar tienda'
     titleFormStore.value = 'Modifica los datos de esta tienda.'
     dialogs.addStore = true
+  }
+  const deleteStore = (store: StoreForm) => {
+    console.log(store)
+    dialogs.confirmDeleteStore = true
   }
 </script>
 <template>
@@ -141,6 +147,12 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+    <!-- Pop-up confirmar borrado tienda -->
+    <Confirm-delete
+      title="Eliminar tienda"
+      subtitle="¿Estas seguro de querer eliminar esta tienda?"
+      :dialog="dialogs.confirmDeleteStore"
+      @close-dialog="closeDialog('confirmDeleteStore')" />
     <!-- Cabecera de tiendas -->
     <div class="separator-container wraped-container">
       <div class="simple-container title-container">
@@ -185,6 +197,7 @@
         :address="store.address"
         :schedule="store.schedule"
         @edit-store="editStore(store)"
+        @delete-store="deleteStore(store)"
       />
     </div>
   </div>
