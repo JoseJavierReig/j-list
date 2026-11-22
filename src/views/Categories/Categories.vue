@@ -15,7 +15,7 @@
   const categories = [
     {id: '1', name: 'Alimentación', description: 'descripcion general', icon: 'restaurant', subcategories: '3', color: '#43a047'},
     {id: '2', name: 'Limpieza', description: 'descripcion general', icon: 'cleaning_services', subcategories: '0', color: '#ffeb3b'},
-    {id: '3', name: 'Higuiene', description: 'descripcion general', icon: 'medical_services', subcategories: '0', color: '#ff5722'},
+    {id: '3', name: 'Higiene', description: 'descripcion general', icon: 'medical_services', subcategories: '0', color: '#ff5722'},
   ]
   const dialogs = reactive({
     addCategory: false,
@@ -232,7 +232,7 @@
       <Add-card
         title="Nueva categoría"
         description="Añade una nueva categoría para organizar tus productos."
-        @open-add="dialogs.addCategory = true" />
+        @open-add="openDialog('addCategory')" />
     </div>
   </div>
 </template>
