@@ -275,7 +275,7 @@
       <div class="separator-container">
         <div class="vertical-center-container clean-padding">
           <q-icon name="layers" size="28px" />
-          <h1 class="title">Subategorías</h1>
+          <h1 class="title">Subcategorías</h1>
         </div>
         <q-btn
           round

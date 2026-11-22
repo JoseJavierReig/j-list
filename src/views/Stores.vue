@@ -73,7 +73,7 @@
 </script>
 <template>
   <div class="view-container">
-    <!-- Pop-up agregar categorias -->
+    <!-- Pop-up agregar tiendas -->
     <q-dialog v-model="dialogs.addStore" persistent>
       <q-card>
         <!-- Cabecera de la card -->
@@ -99,7 +99,7 @@
               </template>
             </q-input>
             <q-space />
-            <!-- Selector de iconos -->
+            <!-- Selector de tipo de comercio -->
             <q-select
               filled
               v-model="storeForm.type" 
@@ -108,7 +108,7 @@
               option-value="value"
               emit-value
               map-options
-              label="Seleccionar icono *">
+              label="Seleccionar tipo de tienda *">
               <template #prepend>
                 <q-icon :name="storeForm.type?.icon || 'category'" />
               </template>
