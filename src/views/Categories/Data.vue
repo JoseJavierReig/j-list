@@ -22,15 +22,15 @@
     confirmDeleteCategory: false,
     confirmDeleteSubcategory: false,
   })
-  const addForm = reactive({
-    name: '',
-    description: '',
-  })
-  const editCatalogForm = reactive({
+  const categoryForm = reactive({
     name: '',
     description: '',
     icon: '',
     color: '#43A047'
+  })
+  const subcategoryForm = reactive({
+    name: '',
+    description: '',
   })
   const icons = [
     {label: 'Home', value: 'home'},
@@ -73,8 +73,8 @@
   ]
   // Métodos
   const cleanForm = () => {
-    addForm.name = ''
-    addForm.description = ''
+    subcategoryForm.name = ''
+    subcategoryForm.description = ''
   }
   const closeDialog = (dialog: keyof typeof dialogs) => {
     dialogs[dialog] = false
@@ -87,6 +87,18 @@
   const deleteSubcategory = (subcategory: Subcategory) => {
     console.log(subcategory)
     dialogs.confirmDeleteSubcategory = true
+  }
+  const editCategory = (category: Category) => {
+    categoryForm.name = category.name
+    categoryForm.description = category.description
+    categoryForm.icon = category.icon
+    categoryForm.color = category.color
+    dialogs.addCategory = true
+  }
+  const editSubcategory = (subcategory: Subcategory) => {
+    subcategoryForm.name = subcategory.name
+    subcategoryForm.description = subcategory.description
+    dialogs.addSubcategory = true
   }
 </script>
 <template>
@@ -107,17 +119,17 @@
         <q-card-section class="column-container">
           <div class="column-container">
             <!-- Input de nombre -->
-            <q-input v-model="editCatalogForm.name" filled label="Nombre *">
+            <q-input v-model="categoryForm.name" filled label="Nombre *">
             </q-input>
             <q-space />
             <!-- Input de descripción -->
-            <q-input type="textarea" v-model="editCatalogForm.description" filled label="Descripción opcional... ">
+            <q-input type="textarea" v-model="categoryForm.description" filled label="Descripción opcional... ">
             </q-input>
             <q-space/>
             <!-- Selector de iconos -->
             <q-select
               filled
-              v-model="editCatalogForm.icon" 
+              v-model="categoryForm.icon" 
               :options="icons"
               option-label="label"
               option-value="value"
@@ -125,7 +137,7 @@
               map-options
               label="Seleccionar icono">
               <template #prepend>
-                <q-icon :name="editCatalogForm.icon || 'category'" />
+                <q-icon :name="categoryForm.icon || 'category'" />
               </template>
               <template #option="scope">
                 <q-item v-bind="scope.itemProps">
@@ -145,12 +157,12 @@
               <q-btn
                 round
                 unelevated
-                :style="{ backgroundColor: editCatalogForm.color }"
+                :style="{ backgroundColor: categoryForm.color }"
                 icon="palette"
-                :color="editCatalogForm.color">
+                :color="categoryForm.color">
                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
                   <q-color
-                    v-model="editCatalogForm.color"
+                    v-model="categoryForm.color"
                     format-model="hex"
                     default-view="palette"
                     :palette="colors"
@@ -183,11 +195,11 @@
         <q-card-section class="column-container">
           <div class="column-container">
             <!-- Input de nombre -->
-            <q-input v-model="addForm.name" filled label="Nombre *">
+            <q-input v-model="subcategoryForm.name" filled label="Nombre *">
             </q-input>
             <q-space />
             <!-- Input de descripción -->
-            <q-input type="textarea" v-model="addForm.description" filled label="Descripción opcional... ">
+            <q-input type="textarea" v-model="subcategoryForm.description" filled label="Descripción opcional... ">
             </q-input>
             <q-space/>
           </div>
@@ -228,6 +240,7 @@
         subcategories="3"
         :data="false"
         @delete-form="deleteCategory(category)"
+        @edit-form="editCategory(category)"
       />
     </div>
     <!-- Sección subcategorías -->
@@ -255,6 +268,7 @@
           :description="subcategory.description"
           :products="subcategory.products"
           @delete-subcategory="deleteSubcategory(subcategory)"
+          @edit-subcategory="editSubcategory(subcategory)"
         />
       </div>
     </div>
