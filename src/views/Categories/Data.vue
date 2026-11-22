@@ -4,16 +4,23 @@
   // Componenetes
   import CardCategory from '../../components/CardCategory.vue';
   import CardSubCategory from '../../components/CardSubCategory.vue';
+  import ConfirmDelete from '../../components/Pop-ups/ConfirmDelete.vue';
+  // Modelos
+  import type { Category } from '../../models/Category.ts';
+  import type { Subcategory } from '../../models/Subcategory.ts';
 
   // Propiedades
   const subcategories = [
-    {id: '1', name: 'Carne', description: 'descripcion general', icon: 'restaurant', products: '0', color: '#43a047'},
-    {id: '2', name: 'Pescado', description: 'descripcion general', icon: 'checkroom', products: '0', color: '#ffeb3b'},
-    {id: '3', name: 'Verdura', description: 'descripcion general', icon: 'medical_services', products: '0', color: '#ff5722'},
+    {id: '1', name: 'Carne', description: 'descripcion general', icon: 'restaurant', products: '0'},
+    {id: '2', name: 'Pescado', description: 'descripcion general', icon: 'checkroom', products: '0'},
+    {id: '3', name: 'Verdura', description: 'descripcion general', icon: 'medical_services', products: '0'},
   ]
+  const category = {id: '1', name: 'Alimentación', description: 'descripcion general', icon: 'restaurant', subcategories: '3', color: '#43a047'}
   const dialogs = reactive({
     addSubcategory: false,
-    addCategory: false
+    addCategory: false,
+    confirmDeleteCategory: false,
+    confirmDeleteSubcategory: false,
   })
   const addForm = reactive({
     name: '',
@@ -72,6 +79,14 @@
   const closeDialog = (dialog: keyof typeof dialogs) => {
     dialogs[dialog] = false
     cleanForm()
+  }
+  const deleteCategory = (category: Category) => {
+    console.log(category)
+    dialogs.confirmDeleteCategory = true
+  }
+  const deleteSubcategory = (subcategory: Subcategory) => {
+    console.log(subcategory)
+    dialogs.confirmDeleteSubcategory = true
   }
 </script>
 <template>
@@ -184,6 +199,18 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+    <!-- Pop-up confirmar borrado catálogo-->
+    <Confirm-delete
+      title="Eliminar categoría"
+      subtitle="¿Estas seguro de querer eliminar esta categoría?"
+      :dialog="dialogs.confirmDeleteCategory"
+      @close-dialog="closeDialog('confirmDeleteCategory')" />
+    <!-- Pop-up confirmar borrado subcatálogo -->
+    <Confirm-delete
+      title="Eliminar subcategoría"
+      subtitle="¿Estas seguro de querer eliminar esta subcategoría?"
+      :dialog="dialogs.confirmDeleteSubcategory"
+      @close-dialog="closeDialog('confirmDeleteSubcategory')" />
     <!-- Miga de pan -->
     <div class="card-container">
       <q-breadcrumbs>
@@ -200,6 +227,7 @@
         color="#43a047"
         subcategories="3"
         :data="false"
+        @delete-form="deleteCategory(category)"
       />
     </div>
     <!-- Sección subcategorías -->
@@ -226,6 +254,7 @@
           :title="subcategory.name"
           :description="subcategory.description"
           :products="subcategory.products"
+          @delete-subcategory="deleteSubcategory(subcategory)"
         />
       </div>
     </div>
