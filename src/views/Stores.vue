@@ -4,6 +4,7 @@
   // Componentes
   import CardStore from '../components/CardStore.vue';
   import ConfirmDelete from '../components/Pop-ups/ConfirmDelete.vue';
+  import HeaderView from '../components/HeaderView.vue';
   // Modelos
   import type { StoreForm } from '../models/Store.ts'
 
@@ -154,30 +155,14 @@
       :dialog="dialogs.confirmDeleteStore"
       @close-dialog="closeDialog('confirmDeleteStore')" />
     <!-- Cabecera de tiendas -->
-    <div class="separator-container wraped-container">
-      <div class="simple-container title-container">
-        <q-icon name="storefront" class="icon-max" />
-        <div class="vertical-container">
-          <h1 class="title">Tiendas</h1>
-          <h2 class="subtitle">Gestiona los establecimientos donde realizas tus compras.</h2>
-        </div>
-      </div>
-      <div class="btn-stores vertical-center-container">
-        <q-chip
-          :clickable="false"
-          :ripple="false"
-          class="chip-base">
-          4 tiendas
-        </q-chip>
-        <q-btn
-          round
-          icon="add"
-          class="btn-icon"
-          @click="openDialog('addStore')">
-          <q-tooltip>Agregar tienda</q-tooltip>
-        </q-btn>
-      </div>
-    </div>
+    <HeaderView 
+      title="Tiendas"
+      subtitle="Gestiona los establecimientos donde realizas tus compras."
+      icon="storefront"
+      count="4"
+      chip="tiendas"
+      tooltip="Agregar tienda"
+      @open-add="openDialog('addStore')" />
     <!-- Sección de busquedas -->
     <div class="simple-container">
       <!-- Input de busqueda -->
@@ -203,13 +188,6 @@
   </div>
 </template>
 <style scoped>
-  .title-container {
-    width: auto;
-  }
-  .btn-stores {
-    width: auto;
-    max-width: 200px;
-  }
   .cover-input {
     width: 100%;
   }

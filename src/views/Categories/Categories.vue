@@ -7,6 +7,7 @@
   import CardCategory from '../../components/CardCategory.vue';
   import AddCard from '../../components/AddCard.vue'
   import ConfirmDelete from '../../components/Pop-ups/ConfirmDelete.vue';
+  import HeaderView from '../../components/HeaderView.vue';
   // Modelos
   import type { Category } from '../../models/Category.ts';
 
@@ -193,30 +194,14 @@
       :dialog="dialogs.confirmDelete"
       @close-dialog="closeDialog('confirmDelete')" />
     <!-- Cabecera de Categorías -->
-    <div class="separator-container wraped-container">
-      <div class="simple-container title-container">
-        <q-icon name="sell" class="icon-max" />
-        <div class="vertical-container">
-          <h1 class="title">Categorías</h1>
-          <h2 class="subtitle">Organiza tus productos por categorías y subcategorías.</h2>
-        </div>
-      </div>
-      <div class="btn-categories vertical-center-container">
-        <q-chip
-          :clickable="false"
-          :ripple="false"
-          class="chip-base">
-          3 categorías
-        </q-chip>
-        <q-btn
-          round
-          icon="add"
-          class="btn-icon"
-          @click="openDialog('addCategory')">
-          <q-tooltip>Nueva categoría</q-tooltip>
-        </q-btn>
-      </div>
-    </div>
+    <HeaderView 
+      title="Categorías"
+      subtitle="Organiza tus productos por categorías y subcategorías."
+      icon="sell"
+      count="3"
+      chip="categorías"
+      tooltip="Nueva categoría"
+      @open-add="openDialog('addCategory')" />
     <!-- Sección de cards -->
     <div class="simple-container wraped-container">
       <!-- Cards de categorías -->
@@ -244,12 +229,5 @@
     transform: translateY(-3px);
     transform: translateX(3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-  .title-container {
-    width: auto;
-  }
-  .btn-categories {
-    width: auto;
-    max-width: 200px;
   }
 </style>

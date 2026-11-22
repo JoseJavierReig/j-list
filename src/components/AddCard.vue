@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  // Propiedades heredades
+  // Propiedades heredadas
   interface Props {
     title: string,
     description: string
