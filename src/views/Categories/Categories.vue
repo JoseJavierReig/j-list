@@ -194,9 +194,12 @@
       @close-dialog="closeDialog('confirmDelete')" />
     <!-- Cabecera de Categorías -->
     <div class="separator-container wraped-container">
-      <div class="vertical-container">
-        <h1 class="title">Categorías</h1>
-        <h2 class="subtitle">Organiza tus productos por categorías y subcategorías.</h2>
+      <div class="simple-container title-container">
+        <q-icon name="sell" class="icon-max" />
+        <div class="vertical-container">
+          <h1 class="title">Categorías</h1>
+          <h2 class="subtitle">Organiza tus productos por categorías y subcategorías.</h2>
+        </div>
       </div>
       <div class="btn-categories vertical-center-container">
         <q-chip
@@ -242,7 +245,11 @@
     transform: translateX(3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
+  .title-container {
+    width: auto;
+  }
   .btn-categories {
     width: auto;
+    max-width: 200px;
   }
 </style>
