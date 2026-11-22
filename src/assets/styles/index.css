@@ -222,7 +222,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn-icon-alter{
   background-color: color-mix(in srgb, var(--primary) 20%, transparent);
-  color: var(--secondary)
+  color: var(--secondary);
+}
+.btn-icon-clean{
+  background-color: inherit;
+  color: var(--secondary);
 }
 .btn-icon-mini {
   font-size: 12px;

@@ -85,7 +85,7 @@
         round
         flat
         icon="more_vert"
-        class="btn-icon-mini btn-icon-alter">
+        class="btn-icon-mini btn-icon-clean">
         <q-menu>
           <q-list role="menu" style="min-width: 100px">
             <q-item  v-if="data" clickable v-close-popup @click="navCategory">
