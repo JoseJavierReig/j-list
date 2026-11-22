@@ -1,6 +1,6 @@
 <script setup lang="ts">
   // Vue
-  import { reactive } from 'vue'
+  import { reactive, ref } from 'vue'
   // Componenetes
   import CardCategory from '../../components/CardCategory.vue';
   import CardSubCategory from '../../components/CardSubCategory.vue';
@@ -71,6 +71,11 @@
     '#EC407A', // Rosa intenso
     '#26A69A'  // Verde azulado
   ]
+  const titleFormCategory = ref('')
+  const subtitleFormCategory = ref('')
+
+  const titleFormSubcategory = ref('')
+  const subtitleFormSubcategory = ref('')
   // Métodos
   const cleanForm = () => {
     subcategoryForm.name = ''
@@ -78,6 +83,12 @@
   }
   const closeDialog = (dialog: keyof typeof dialogs) => {
     dialogs[dialog] = false
+    cleanForm()
+  }
+  const openDialog = (dialog: keyof typeof dialogs) => {
+    dialogs[dialog] = true
+    titleFormSubcategory.value = 'Nueva subcategoría'
+    subtitleFormSubcategory.value = 'Introduce los datos de la nueva subcategoría.'
     cleanForm()
   }
   const deleteCategory = (category: Category) => {
@@ -93,11 +104,15 @@
     categoryForm.description = category.description
     categoryForm.icon = category.icon
     categoryForm.color = category.color
+    titleFormCategory.value = 'Editar categoría'
+    subtitleFormCategory.value = 'Modifica los datos de esta categoría.'
     dialogs.addCategory = true
   }
   const editSubcategory = (subcategory: Subcategory) => {
     subcategoryForm.name = subcategory.name
     subcategoryForm.description = subcategory.description
+    titleFormSubcategory.value = 'Editar subcategoría'
+    subtitleFormSubcategory.value = 'Modifica los datos de esta subcategoría.'
     dialogs.addSubcategory = true
   }
 </script>
@@ -109,8 +124,8 @@
         <!-- Cabecera de la card -->
         <q-card-section class="vertical-start-container">
           <div class="column-container">
-            <h1 class="title">Nueva categoría</h1>
-            <h2 class="subtitle">Introduce los datos de la nueva categoría.</h2>
+            <h1 class="title">{{ titleFormCategory }}</h1>
+            <h2 class="subtitle">{{ subtitleFormCategory }}</h2>
           </div>
           <q-space />
           <q-btn icon="close" flat round dense @click="closeDialog('addCategory')" />
@@ -185,8 +200,8 @@
         <!-- Cabecera de la card -->
         <q-card-section class="vertical-start-container">
           <div class="column-container">
-            <h1 class="title">Nueva subcategoría</h1>
-            <h2 class="subtitle">Introduce los datos de la nueva subcategoría.</h2>
+            <h1 class="title">{{ titleFormSubcategory }}</h1>
+            <h2 class="subtitle">{{ subtitleFormSubcategory }}</h2>
           </div>
           <q-space />
           <q-btn icon="close" flat round dense @click="closeDialog('addSubcategory')" />
@@ -255,7 +270,7 @@
           round
           icon="add"
           class="btn-icon"
-          @click="dialogs.addSubcategory = true">
+          @click="openDialog('addSubcategory')">
           <q-tooltip>Nueva subcategoría</q-tooltip>
         </q-btn>
       </div>

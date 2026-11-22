@@ -1,6 +1,6 @@
 <script setup lang="ts">
   // Vue
-  import { reactive } from 'vue'
+  import { reactive, ref } from 'vue'
   // Router
   import { useRouter } from 'vue-router'
   // Componenetes
@@ -21,7 +21,7 @@
     addCategory: false,
     confirmDelete: false
   })
-  const addForm = reactive({
+  const categoryForm = reactive({
     name: '',
     description: '',
     icon: '',
@@ -66,22 +66,32 @@
     '#EC407A', // Rosa intenso
     '#26A69A'  // Verde azulado
   ]
+  const titleFormCategory = ref('')
+  const subtitleFormCategory = ref('')
   // Métodos
   const cleanForm = () => {
-    addForm.name = ''
-    addForm.description = ''
-    addForm.icon = ''
-    addForm.color = '#43A047'
+    categoryForm.name = ''
+    categoryForm.description = ''
+    categoryForm.icon = ''
+    categoryForm.color = '#43A047'
   }
   const closeDialog = (dialog: keyof typeof dialogs) => {
     dialogs[dialog] = false
     cleanForm()
   }
-  const editForm = (category: Category) => {
-    addForm.name = category.name
-    addForm.description = category.description
-    addForm.icon = category.icon
-    addForm.color = category.color
+  const openDialog = (dialog: keyof typeof dialogs) => {
+    dialogs[dialog] = true
+    titleFormCategory.value = 'Nueva categoría'
+    subtitleFormCategory.value = 'Introduce los datos de la nueva categoría.'
+    cleanForm()
+  }
+  const editCategory = (category: Category) => {
+    categoryForm.name = category.name
+    categoryForm.description = category.description
+    categoryForm.icon = category.icon
+    categoryForm.color = category.color
+    titleFormCategory.value = 'Editar categoría'
+    subtitleFormCategory.value = 'Modifica los datos de esta categoría.'
     dialogs.addCategory = true
   }
   const deleteCategory = (category: Category) => {
@@ -106,8 +116,8 @@
         <!-- Cabecera de la card -->
         <q-card-section class="vertical-start-container">
           <div class="column-container">
-            <h1 class="title">Nueva categoría</h1>
-            <h2 class="subtitle">Introduce los datos de la nueva categoría.</h2>
+            <h1 class="title">{{ titleFormCategory }}</h1>
+            <h2 class="subtitle">{{ subtitleFormCategory }}</h2>
           </div>
           <q-space />
           <q-btn icon="close" flat round dense @click="closeDialog('addCategory')" />
@@ -116,17 +126,17 @@
         <q-card-section class="column-container">
           <div class="column-container">
             <!-- Input de nombre -->
-            <q-input v-model="addForm.name" filled label="Nombre *">
+            <q-input v-model="categoryForm.name" filled label="Nombre *">
             </q-input>
             <q-space />
             <!-- Input de descripción -->
-            <q-input type="textarea" v-model="addForm.description" filled label="Descripción opcional... ">
+            <q-input type="textarea" v-model="categoryForm.description" filled label="Descripción opcional... ">
             </q-input>
             <q-space/>
             <!-- Selector de iconos -->
             <q-select
               filled
-              v-model="addForm.icon" 
+              v-model="categoryForm.icon" 
               :options="icons"
               option-label="label"
               option-value="value"
@@ -134,7 +144,7 @@
               map-options
               label="Seleccionar icono">
               <template #prepend>
-                <q-icon :name="addForm.icon || 'category'" />
+                <q-icon :name="categoryForm.icon || 'category'" />
               </template>
               <template #option="scope">
                 <q-item v-bind="scope.itemProps">
@@ -154,12 +164,12 @@
               <q-btn
                 round
                 unelevated
-                :style="{ backgroundColor: addForm.color }"
+                :style="{ backgroundColor: categoryForm.color }"
                 icon="palette"
-                :color="addForm.color">
+                :color="categoryForm.color">
                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
                   <q-color
-                    v-model="addForm.color"
+                    v-model="categoryForm.color"
                     format-model="hex"
                     default-view="palette"
                     :palette="colors"
@@ -199,7 +209,7 @@
           round
           icon="add"
           class="btn-icon"
-          @click="dialogs.addCategory = true">
+          @click="openDialog('addCategory')">
           <q-tooltip>Nueva categoría</q-tooltip>
         </q-btn>
       </div>
@@ -215,7 +225,7 @@
         :color="category.color"
         :subcategories="category.subcategories"
         :data="true"
-        @edit-form="editForm(category)"
+        @edit-form="editCategory(category)"
         @delete-form="deleteCategory(category)"
         @nav-category="navigateToCategory(category.id)" />
       <!-- Card de agregación -->
