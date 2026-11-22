@@ -10,10 +10,13 @@
   import type { Subcategory } from '../../models/Subcategory.ts';
 
   // Propiedades
+  const url1 = 'https://media.istockphoto.com/id/505207430/es/foto/mariscos-frescos-y-bistecs-de-carne-de-res.jpg?s=612x612&w=0&k=20&c=UKxPwxvPUlDgh0U5byXg1RX1_egoBJOgUi9bii_jdRI='
+  const url2 = 'https://opercebeiro.com/wp-content/uploads/nc/catalog/besugo.jpg'
+  const url3 = 'https://www.nutricionvitoria.com/wp-content/uploads/2021/06/verduras-y-hortalizas.jpg'
   const subcategories = [
-    {id: '1', name: 'Carne', description: 'descripcion general', icon: 'restaurant', products: '0'},
-    {id: '2', name: 'Pescado', description: 'descripcion general', icon: 'checkroom', products: '0'},
-    {id: '3', name: 'Verdura', description: 'descripcion general', icon: 'medical_services', products: '0'},
+    {id: '1', name: 'Carne', description: 'descripcion general', imageUrl: url1, products: '0'},
+    {id: '2', name: 'Pescado', description: 'descripcion general', imageUrl: url2, products: '0'},
+    {id: '3', name: 'Verduras', description: 'descripcion general', imageUrl: url3, products: '0'},
   ]
   const category = {id: '1', name: 'Alimentación', description: 'descripcion general', icon: 'restaurant', subcategories: '3', color: '#43a047'}
   const dialogs = reactive({
@@ -31,6 +34,7 @@
   const subcategoryForm = reactive({
     name: '',
     description: '',
+    imageUrl: '',
   })
   const icons = [
     {label: 'Home', value: 'home'},
@@ -80,6 +84,7 @@
   const cleanForm = () => {
     subcategoryForm.name = ''
     subcategoryForm.description = ''
+    subcategoryForm.imageUrl = ''
   }
   const closeDialog = (dialog: keyof typeof dialogs) => {
     dialogs[dialog] = false
@@ -217,6 +222,12 @@
             <q-input type="textarea" v-model="subcategoryForm.description" filled label="Descripción opcional... ">
             </q-input>
             <q-space/>
+            <!-- Input de imagen -->
+            <q-input v-model="subcategoryForm.imageUrl" filled label="Imagen de la subcategoría *">
+              <template #prepend>
+                <q-icon name="image" />
+              </template>
+            </q-input>
           </div>
         </q-card-section>
         <!-- Botones de acción -->
@@ -278,7 +289,7 @@
       <div class="simple-container wraped-container">
         <Card-sub-category
           v-for="subcategory in subcategories"
-          :icon="subcategory.icon"
+          :imageUrl="subcategory.imageUrl"
           :title="subcategory.name"
           :description="subcategory.description"
           :products="subcategory.products"

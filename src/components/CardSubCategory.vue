@@ -1,7 +1,7 @@
 <script setup lang="ts">
   // Propiedades heredades
   interface Props {
-    icon: string,
+    imageUrl: string,
     title: string,
     description: string,
     products: string
@@ -25,7 +25,13 @@
     class="card-container-subcategory simple-container">
     <!-- Sección de icono -->
     <div class="column-container icon-category">
-      <q-icon :name="props.icon" class="icon-max" />
+      <!-- <q-icon :name="props.icon" class="icon-max" /> -->
+      <q-avatar rounded size="120px">
+        <q-img
+          :src="props.imageUrl"
+          fit="cover"
+        />
+      </q-avatar>
     </div>
     <!-- Información de la categoría -->
     <div class="column-container">
@@ -78,7 +84,6 @@
 .icon-category {
   width: auto;
   max-height: fit-content;
-  background-color: color-mix(in srgb, var(--primary) 20%, transparent);;
   padding: 17px;
   border-radius: 10px;
 }
