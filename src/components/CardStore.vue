@@ -1,9 +1,11 @@
 <script setup lang="ts">
+  // Modelos
+  import type { StoreType } from '../models/Store.ts'
   // Propiedades heredades
   interface Props {
     imageUrl: string,
     title: string,
-    type: string,
+    type: StoreType | null,
     address: string,
     schedule: string,
   }
@@ -39,8 +41,8 @@
         <span class="title-card">{{ props.title }}</span>
         <!-- Información de la tienda -->
         <div class="vertical-center-container clean-padding">
-          <q-icon name="shopping_cart" class="icon-mini" />
-          <span> {{ props.type }} </span>
+          <q-icon :name="props.type?.icon" class="icon-mini" />
+          <span> {{ props.type?.label }} </span>
         </div>
         <div class="vertical-center-container clean-padding">
           <q-icon name="location_on" class="icon-mini" />

@@ -13,10 +13,10 @@
   const url3 = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/AldiNord-WorldwideLogo.svg/1280px-AldiNord-WorldwideLogo.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail'
   const url4 = 'https://media.printables.com/media/prints/737685/images/5765405_a7258822-3e12-4c3d-80d0-a93eca2c2b4a_c0f967a3-1528-46e1-8b05-f2f25fe7c8ff/thumbs/inside/1280x960/png/thumbnail-2.webp'
   const stores = [
-    {id: '1', name: 'Carrefour', type: 'Hipermercado', imageUrl: url1, address: 'Calle 2', schedule: 'Lun - Dom: 9:00 - 22:00'},
-    {id: '2', name: 'Mercadona', type: 'Supermercado', imageUrl: url2, address: 'Calle 2', schedule: 'Lun - Dom: 9:00 - 21:30'},
-    {id: '3', name: 'Aldi', type: 'Supermercado', imageUrl: url3, address: 'Calle 2', schedule: 'Lun - Sab: 9:00 - 21:00'},
-    {id: '4', name: 'Lidl', type: 'Supermercado', imageUrl: url4, address: 'Calle 2', schedule: 'Lun - Dom: 8:00 - 22:00'},
+    {id: '1', name: 'Carrefour', type: { label: 'Hipermercado', value: 'hipermarket', icon: 'local_mall'}, imageUrl: url1, address: 'Calle 2', schedule: 'Lun - Dom: 9:00 - 22:00'},
+    {id: '2', name: 'Mercadona', type: { label: 'Supermercado', value: 'supermarket', icon: 'shopping_cart'}, imageUrl: url2, address: 'Calle 2', schedule: 'Lun - Dom: 9:00 - 21:30'},
+    {id: '3', name: 'Aldi', type: { label: 'Supermercado', value: 'supermarket', icon: 'shopping_cart'}, imageUrl: url3, address: 'Calle 2', schedule: 'Lun - Sab: 9:00 - 21:00'},
+    {id: '4', name: 'Lidl', type: { label: 'Supermercado', value: 'supermarket', icon: 'shopping_cart'}, imageUrl: url4, address: 'Calle 2', schedule: 'Lun - Dom: 8:00 - 22:00'},
   ]
   const dialogs = reactive({
     addStore: false
@@ -53,6 +53,16 @@
     titleFormStore.value = 'Agregar nueva tienda'
     subtitleFormStore.value = 'Introduce los datos de la nueva tienda.'
     cleanForm()
+  }
+  const editStore = (store: StoreForm) => {
+    storeForm.name = store.name
+    storeForm.imageUrl = store.imageUrl
+    storeForm.type = store.type
+    storeForm.address = store.address
+    storeForm.schedule = store.schedule
+    titleFormStore.value = 'Editar tienda'
+    titleFormStore.value = 'Modifica los datos de esta tienda.'
+    dialogs.addStore = true
   }
 </script>
 <template>
@@ -174,6 +184,7 @@
         :type="store.type"
         :address="store.address"
         :schedule="store.schedule"
+        @edit-store="editStore(store)"
       />
     </div>
   </div>
