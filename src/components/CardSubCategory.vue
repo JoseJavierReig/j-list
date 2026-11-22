@@ -24,7 +24,7 @@
   <div 
     class="card-container-subcategory simple-container">
     <!-- Sección de icono -->
-    <div class="column-container icon-category">
+    <div class="column-container image-subcategory">
       <!-- <q-icon :name="props.icon" class="icon-max" /> -->
       <q-avatar rounded size="120px">
         <q-img
@@ -81,11 +81,9 @@
   position: absolute;
   right: 8px;
 }
-.icon-category {
+.image-subcategory {
   width: auto;
   max-height: fit-content;
-  padding: 17px;
-  border-radius: 10px;
 }
 @media screen and (max-width: 768px) {
     .card-container-subcategory {
