@@ -193,7 +193,7 @@
       </q-card>
     </q-dialog>
     <!-- Cabecera de inventario -->
-    <HeaderView 
+    <HeaderView
       title="Inventario"
       subtitle="Consulta y controla las existencias de tus productos."
       icon="inventory_2"
@@ -208,7 +208,7 @@
         </template>
       </q-input>
     </div>
-    <div class="column-container">
+    <div class="column-container navigate-container">
       <!-- Contenedor de categoria -->
       <div
         v-for="categorie in getCategoryWithProducts()"

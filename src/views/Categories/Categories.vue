@@ -203,7 +203,7 @@
       tooltip="Nueva categoría"
       @open-add="openDialog('addCategory')" />
     <!-- Sección de cards -->
-    <div class="simple-container wraped-container">
+    <div class="simple-container wraped-container navigate-container">
       <!-- Cards de categorías -->
       <Card-category
         v-for="category in categories"
