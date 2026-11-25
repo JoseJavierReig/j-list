@@ -27,6 +27,7 @@
   const url2 = 'https://media.pescoandgo.es/product/filete-de-merluza-con-piel-sin-escamas-2-unidades-de-300gr-800x800.jpg?width=1200'
   const url3 = 'https://huertadelperigall.com/wp-content/uploads/2022/04/Zanahoria-ecologica.png'
   const url4 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIFzVAGhKw0BJEsnu9TONuYrDpyBvj-GBQocGERRFJ1_w7svwwlB2AOlY&s=10'
+  const url5 = 'https://images.ctfassets.net/qilztky7jpz1/5ecg58gMaxGjcxk62Jobng/b510b3b8a25a772a11f75fb894899be5/JNB_EMEA_PT_3574669907750_9432005_Baby_Shampoo_Gold_500ml_MOBILE.Jpg?fm=webp&w=3840'
   const products = [
     {name: 'Pollo', imageUrl: url1, categoryId: '1', subcategoryId: '1', count: 2, unit: '', brand: ''},
     {name: 'Pollo', imageUrl: url1, categoryId: '1', subcategoryId: '1', count: 2, unit: '', brand: ''},
@@ -34,7 +35,8 @@
     {name: 'Pollo', imageUrl: url1, categoryId: '1', subcategoryId: '1', count: 2, unit: '', brand: ''},
     {name: 'Merluza', imageUrl: url2, categoryId: '1', subcategoryId: '2', count: 2, unit: 'kg', brand: ''},
     {name: 'Zanahoria', imageUrl: url3, categoryId: '1', subcategoryId: '3', count: 2, unit: '', brand: ''},
-    {name: 'Trapo de microfibra', imageUrl: url4, categoryId: '2', subcategoryId: '4', count: 2, unit: '', brand: ''},
+    {name: 'Trapo de microfibra', imageUrl: url4, categoryId: '2', subcategoryId: '4', count: 2, unit: '', brand: 'Hacendado'},
+    {name: 'Champu', imageUrl: url5, categoryId: '3', subcategoryId: '', count: 2, unit: '', brand: 'Hacendado'},
   ]
   const categories = [
     {label: 'Alimentación', value: '1', icon: 'restaurant'},
@@ -75,11 +77,17 @@
   const getSubcategory = (id: string) => {
     return subcategories.filter(item => item.categoryId === id)
   }
+  const getCategoryWithProducts = () => {
+    return categories.filter(item => countProductsByCategory(item.value) > 0)
+  }
   const getIconCategory = (id: string | null) => {
     return categories.find(item => item.value === id)?.icon
   }
   const getProductsBySubcategory = (id: string) => {
     return products.filter(item => item.subcategoryId === id)
+  }
+  const getProductsByCategory = (id: string) => {
+    return products.filter(item => item.categoryId === id && item.subcategoryId === '')
   }
   const countProductsByCategory = (id: string) => {
     return products.filter(item => item.categoryId === id).length
@@ -87,6 +95,7 @@
   const countProductsBySubcategory = (id: string) => {
     return products.filter(item => item.subcategoryId === id).length
   }
+  
 </script>
 <template>
   <div class="view-container">
@@ -202,7 +211,7 @@
     <div class="column-container">
       <!-- Contenedor de categoria -->
       <div
-        v-for="categorie in categories"
+        v-for="categorie in getCategoryWithProducts()"
         class="vertical-container">
         <!-- Título de la categoría -->
         <div class="simple-container">
@@ -247,6 +256,18 @@
               :unit="product.unit"
               :brand="product.brand" />
           </div>
+        </div>
+        <!-- Contenedor de productos sin subcategoria -->
+        <div
+          v-if="getProductsByCategory(categorie.value)"
+          class="simple-container wraped-container">
+          <ProductCard
+            v-for="product in getProductsByCategory(categorie.value)"
+            :title="product.name"
+            :image-url="product.imageUrl"
+            :count="product.count"
+            :unit="product.unit"
+            :brand="product.brand" />
         </div>
       </div>
     </div>

@@ -36,6 +36,10 @@
     <!-- Información del producto -->
     <div class="column-container">
         <span class="title-card-mini">{{ props.title }}</span>
+        <div v-if="props.brand" class="vertical-center-container clean-padding">
+          <q-icon name="flag" class="icon-mini" />
+          <span> {{ props.brand }} </span>
+        </div>
         <div class="vertical-center-container clean-padding">
           <q-icon name="inventory" class="icon-mini" />
           <span> Stock {{ props.count }} {{ props.unit }} </span>
