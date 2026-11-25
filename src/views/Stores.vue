@@ -173,7 +173,7 @@
       </q-input>
     </div>
     <!-- Sección de tiendas -->
-    <div class="simple-container wraped-container navigate-container">
+    <div class="simple-container wraped-container">
       <CardStore
         v-for="store in stores"
         :imageUrl="store.imageUrl"

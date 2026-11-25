@@ -208,7 +208,7 @@
         </template>
       </q-input>
     </div>
-    <div class="column-container navigate-container">
+    <div class="column-container">
       <!-- Contenedor de categoria -->
       <div
         v-for="categorie in getCategoryWithProducts()"
