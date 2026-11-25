@@ -1,8 +1,9 @@
 <script setup lang="ts">
   // Vue
-  import { ref, reactive } from 'vue';
+  import { ref, reactive} from 'vue';
   // Componentes
   import HeaderView from '../components/HeaderView.vue';
+  import ProductCard from '../components/ProductCard.vue';
   // Modelos
   import type { Stocktaking } from '../models/Stocktaking.ts';
 
@@ -16,12 +17,25 @@
     name: '',
     description: '',
     imageUrl: '',
-    category: null,
-    subcategory: null,
+    categoryId: '',
+    subcategoryId: '',
     count: 0,
     unit: '',
     brand: ''
   })
+  const url1 = 'https://kitchenacademy.es/wp-content/uploads/pollo.jpg'
+  const url2 = 'https://media.pescoandgo.es/product/filete-de-merluza-con-piel-sin-escamas-2-unidades-de-300gr-800x800.jpg?width=1200'
+  const url3 = 'https://huertadelperigall.com/wp-content/uploads/2022/04/Zanahoria-ecologica.png'
+  const url4 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIFzVAGhKw0BJEsnu9TONuYrDpyBvj-GBQocGERRFJ1_w7svwwlB2AOlY&s=10'
+  const products = [
+    {name: 'Pollo', imageUrl: url1, categoryId: '1', subcategoryId: '1', count: 2, unit: '', brand: ''},
+    {name: 'Pollo', imageUrl: url1, categoryId: '1', subcategoryId: '1', count: 2, unit: '', brand: ''},
+    {name: 'Pollo', imageUrl: url1, categoryId: '1', subcategoryId: '1', count: 2, unit: '', brand: ''},
+    {name: 'Pollo', imageUrl: url1, categoryId: '1', subcategoryId: '1', count: 2, unit: '', brand: ''},
+    {name: 'Merluza', imageUrl: url2, categoryId: '1', subcategoryId: '2', count: 2, unit: 'kg', brand: ''},
+    {name: 'Zanahoria', imageUrl: url3, categoryId: '1', subcategoryId: '3', count: 2, unit: '', brand: ''},
+    {name: 'Trapo de microfibra', imageUrl: url4, categoryId: '2', subcategoryId: '4', count: 2, unit: '', brand: ''},
+  ]
   const categories = [
     {label: 'Alimentación', value: '1', icon: 'restaurant'},
     {label: 'Limpieza', value: '2', icon: 'cleaning_services'},
@@ -30,7 +44,8 @@
   const subcategories = [
     {label: 'Carne', value: '1', categoryId: '1'},
     {label: 'Pescado', value: '2', categoryId: '1'},
-    {label: 'Verduras', value: '3', categoryId: '1'}
+    {label: 'Verduras', value: '3', categoryId: '1'},
+    {label: 'Trapos', value: '4', categoryId: '2'},
   ]
 
   const titleFormProduct = ref('')
@@ -41,8 +56,8 @@
     productForm.name = ''
     productForm.description = ''
     productForm.imageUrl = ''
-    productForm.category = null
-    productForm.subcategory = null
+    productForm.categoryId = ''
+    productForm.subcategoryId = ''
     productForm.count = 0
     productForm.unit = ''
     productForm.brand = ''
@@ -53,9 +68,24 @@
   }
   const openDialog = (dialog: keyof typeof dialogs) => {
     dialogs[dialog] = true
-    titleFormProduct.value = 'Agregar nueva tienda'
-    subtitleFormProduct.value = 'Introduce los datos de la nueva tienda.'
+    titleFormProduct.value = 'Agregar nuevo producto'
+    subtitleFormProduct.value = 'Introduce los datos del producto.'
     cleanForm()
+  }
+  const getSubcategory = (id: string) => {
+    return subcategories.filter(item => item.categoryId === id)
+  }
+  const getIconCategory = (id: string | null) => {
+    return categories.find(item => item.value === id)?.icon
+  }
+  const getProductsBySubcategory = (id: string) => {
+    return products.filter(item => item.subcategoryId === id)
+  }
+  const countProductsByCategory = (id: string) => {
+    return products.filter(item => item.categoryId === id).length
+  }
+  const countProductsBySubcategory = (id: string) => {
+    return products.filter(item => item.subcategoryId === id).length
   }
 </script>
 <template>
@@ -84,7 +114,7 @@
             </q-input>
             <q-space/>
             <!-- Input de imagen -->
-            <q-input v-model="productForm.imageUrl" filled label="Imagen de la subcategoría *">
+            <q-input v-model="productForm.imageUrl" filled label="Imagen del producto *">
               <template #prepend>
                 <q-icon name="image" />
               </template>
@@ -93,7 +123,7 @@
             <!-- Selector de categoría -->
             <q-select
               filled
-              v-model="productForm.category" 
+              v-model="productForm.categoryId" 
               :options="categories"
               option-label="label"
               option-value="value"
@@ -101,7 +131,7 @@
               map-options
               label="Seleccionar categoría *">
               <template #prepend>
-                <q-icon :name="productForm.category?.icon || 'category'" />
+                <q-icon :name="getIconCategory(productForm.categoryId) || 'category'" />
               </template>
               <template #option="scope">
                 <q-item v-bind="scope.itemProps">
@@ -117,10 +147,10 @@
             <q-space />
             <!-- Selector de subcategoría -->
             <q-select
-              v-if="productForm.category"
+              v-if="productForm.categoryId"
               filled
               clearable
-              v-model="productForm.subcategory" 
+              v-model="productForm.subcategoryId" 
               :options="subcategories"
               option-label="label"
               option-value="value"
@@ -168,6 +198,57 @@
           <q-icon name="search" />
         </template>
       </q-input>
+    </div>
+    <div class="column-container">
+      <!-- Contenedor de categoria -->
+      <div
+        v-for="categorie in categories"
+        class="vertical-container">
+        <!-- Título de la categoría -->
+        <div class="simple-container">
+          <q-icon :name="categorie.icon" class="icon-base" />
+          <h2 class="title">{{ categorie.label }}</h2>
+          <q-chip
+            :clickable="false"
+            :ripple="false"
+            class="chip-base">
+            {{ countProductsByCategory(categorie.value) }} 
+            <label v-if="countProductsByCategory(categorie.value) === 1">
+              &nbsp;Producto
+            </label>
+            <label v-else>&nbsp;Productos</label>
+          </q-chip>
+        </div>
+        <q-separator class="separator" />
+        <!-- Contenedor de subcategorias de cada categoria-->
+        <div
+          v-for="subcategorie in getSubcategory(categorie.value)"
+          class="vertical-container">
+          <!-- Título de la subcategoría -->
+          <div class="simple-container">
+            <h2 class="title">{{ subcategorie.label }}</h2>
+            <q-chip
+              :clickable="false"
+              :ripple="false"
+              class="chip-base">
+              {{ countProductsBySubcategory(subcategorie.value) }}
+              <label v-if="countProductsBySubcategory(subcategorie.value) === 1">
+                &nbsp;Producto
+              </label>
+              <label v-else>&nbsp;Productos</label>
+            </q-chip>
+          </div>
+          <div class="simple-container wraped-container">
+            <ProductCard
+              v-for="product in getProductsBySubcategory(subcategorie.value)"
+              :title="product.name"
+              :image-url="product.imageUrl"
+              :count="product.count"
+              :unit="product.unit"
+              :brand="product.brand" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
