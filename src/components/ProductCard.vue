@@ -23,10 +23,10 @@
 </script>
 <template>
   <div 
-    class="card-container-product simple-container">
+    class="card-container-product column-container vertical-center-container">
     <!-- Sección de imagen -->
-    <div class="column-container image-subcategory">
-      <q-avatar rounded size="40px">
+    <div class="image-avatar">
+      <q-avatar rounded size="120px">
         <q-img
           :src="props.imageUrl"
           fit="cover"
@@ -34,11 +34,11 @@
       </q-avatar>
     </div>
     <!-- Información del producto -->
-    <div class="column-container">
+    <div class="column-container clean-padding">
         <span class="title-card-mini">{{ props.title }}</span>
-        <div v-if="props.brand" class="vertical-center-container clean-padding">
+        <div class="vertical-center-container clean-padding">
           <q-icon name="flag" class="icon-mini" />
-          <span> {{ props.brand }} </span>
+          <span> {{ props.brand || '-'  }} </span>
         </div>
         <div class="vertical-center-container clean-padding">
           <q-icon name="inventory" class="icon-mini" />
@@ -70,8 +70,8 @@
 
 <style scoped>
 .card-container-product {
-  flex: 1 1 calc(50% - 16px);
-  max-width: 198px;
+  max-width: 190px;
+  height: 244px;
   background-color: var(--app-bg);
   border: 1px solid var(--text-primary);
   border-radius: 10px;
@@ -83,9 +83,10 @@
   position: absolute;
   right: 8px;
 }
-.image-subcategory {
-  width: auto;
+.image-avatar {
+  width: fit-content;
   max-height: fit-content;
+  object-fit: contain;
 }
 @media screen and (max-width: 768px) {
     .card-container-product {
